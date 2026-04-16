@@ -1,0 +1,55 @@
+---
+sdwan:
+  configuration_groups:
+    - name: dc_hub
+      description: data center with BGP in the LAN
+      cli_profile: cli_basic
+      service_profile: service_lan_bgp
+      system_profile: system_hub
+      transport_profile: transport_static
+      device_tags:
+        - name: dc_primary
+          features:
+            - lan_vpn10_bgp_primary
+            - bgp_feature_vpn10_primary
+            - rm_site_bgp_to_omp_active
+            - rm_site_bgp_out_active
+        - name: dc_secondary
+          features:
+            - lan_vpn10_bgp_secondary
+            - bgp_feature_vpn10_secondary
+            - rm_site_bgp_to_omp_standby
+            - rm_site_bgp_out_standby
+    - name: branch_type1_primary
+      description: dual router branch with TLOC-ext and VRRP in the LAN (Primary with DHCP)
+      cli_profile: cli_basic
+      service_profile: service_lan_vrrp_primary_dhcp
+      system_profile: system_branch_type1_primary
+      transport_profile: transport_static_tloc_ext
+    - name: branch_type1_secondary
+      description: dual router branch with TLOC-ext and VRRP in the LAN
+      cli_profile: cli_basic
+      service_profile: service_lan_vrrp_secondary
+      system_profile: system_branch_type1_secondary
+      transport_profile: transport_static_tloc_ext
+    - name: branch_type2
+      description: dual router branch with static TLOCs and OSPF in the LAN
+      cli_profile: cli_basic
+      service_profile: service_lan_ospf
+      system_profile: system_branch_type2
+      transport_profile: transport_static
+      device_tags:
+        - name: type2_primary
+          features:
+            - lan_vpn10_ospf_primary
+            - lan_vpn11_ospf_primary
+            - ospf_feature_vpn10_primary
+            - ospf_feature_vpn11_primary
+            - rm_site_omp_to_ospf_active
+        - name: type2_secondary
+          features:
+            - lan_vpn10_ospf_secondary
+            - lan_vpn11_ospf_secondary
+            - ospf_feature_vpn10_secondary
+            - ospf_feature_vpn11_secondary
+            - rm_site_omp_to_ospf_standby

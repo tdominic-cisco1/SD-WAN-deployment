@@ -1,0 +1,1767 @@
+---
+sdwan:
+  feature_profiles:
+    policy_object_profile:
+      name: policy_objects_main
+      description: Main policy objects for configuration groups
+      as_path_lists:
+        - name: aspath_list10
+          id: 12
+          as_paths:
+            - ^65100
+            - ^65101
+        - name: aspath_list11
+          id: 11
+          as_paths:
+            - ^65100$
+            - ^$
+      forwarding_classes:
+        - name: class_realtime
+          queue: 0
+        - name: class_business
+          queue: 1
+        - name: class_default
+          queue: 2
+        - name: class_bulk
+          queue: 3
+        - name: class_low_priority
+          queue: 4
+      expanded_community_lists:
+        - name: exp_community
+          expanded_communities:
+            - 1000:1000
+            - 2000:2000
+        - name: exp_community_cct_test
+          expanded_communities:
+            - 1500:1700
+            - 1500:1800
+      extended_community_lists:
+        - name: ext_community
+          extended_communities:
+            - soo 1:1
+            - rt 1:1
+      ipv4_data_prefix_lists:
+        - name: dpl_default
+          prefixes:
+            - 0.0.0.0/0
+        - name: dpl_dc_vpn10_loopbacks
+          prefixes:
+            - 10.0.10.1/32
+            - 10.0.10.2/32
+        - name: dpl_bogon_addr
+          prefixes:
+            - 10.0.0.0/8
+            - 172.16.0.0/12
+            - 192.168.0.0/16
+            - 127.0.0.0/8
+            - 100.64.0.0/10
+        - name: dpl_dc_vpn11_loopbacks
+          prefixes:
+            - 10.0.11.1/32
+            - 10.0.11.2/32
+      ipv4_prefix_lists:
+        - name: pl_default
+          entries:
+            - prefix: 0.0.0.0/0
+        - name: pl_dc_vpn10_loopbacks
+          entries:
+            - prefix: 10.0.10.1/32
+            - prefix: 10.0.10.2/32
+        - name: pl_dc_vpn11_loopbacks
+          entries:
+            - prefix: 10.0.11.1/32
+            - prefix: 10.0.11.2/32
+      ipv6_data_prefix_lists:
+        - name: dpl_private
+          prefixes:
+            - fe40:5657:6df1:d34f::/64
+            - fc00::/7
+      ipv6_prefix_lists:
+        - name: pl_v6_private_ranges
+          entries:
+            - prefix: fe40:5657:6df1:d34f::/64
+            - prefix: fc00::/7
+              ge: 120
+      preferred_color_groups:
+        - name: mpls_biz
+          primary_colors:
+            - mpls
+          secondary_colors:
+            - biz-internet
+          tertiary_colors:
+            - lte
+      standard_community_lists:
+        - name: st_community
+          standard_communities:
+            - 1000:1000
+            - 1000:1002
+        - name: community_region1
+          standard_communities:
+            - 1000:10000
+        - name: community_region_cct_test
+          standard_communities:
+            - 1000:10000
+    cli_profiles:
+      - name: cli_basic
+        config:
+          description: edge cli template
+          cli_configuration: |
+            platform console serial
+            class-map match-any CLASS-BULK
+             match qos-group 3
+            class-map match-any CLASS-BUSINESS
+             match qos-group 1
+            class-map match-any CLASS-DEFAULT
+             match qos-group 2
+            class-map match-any CLASS-LOW-PRIORITY
+             match qos-group 4
+            class-map match-any CLASS-REALTIME
+             match qos-group 0
+            class-map match-any Queue0
+             match qos-group 0
+            class-map match-any Queue1
+             match qos-group 1
+            class-map match-any Queue2
+             match qos-group 2
+            class-map match-any Queue3
+             match qos-group 3
+            class-map match-any Queue4
+             match qos-group 4
+            policy-map QOS-MAP-1P4Q
+             class Queue0
+              police rate percent 10
+              priority level 1
+             class Queue1
+              bandwidth remaining ratio 40
+              random-detect precedence-based
+             class class-default
+              bandwidth remaining ratio 15
+              random-detect precedence-based
+             class Queue3
+              bandwidth remaining ratio 25
+              random-detect precedence-based
+             class Queue4
+              bandwidth remaining ratio 10
+              random-detect precedence-based
+            policy-map shape_GigabitEthernet1
+             class class-default
+              service-policy QOS-MAP-1P4Q
+            policy
+             app-visibility
+             flow-visibility
+             class-map
+              class CLASS-REALTIME queue 0
+              class Queue0 queue 0
+              class CLASS-BUSINESS queue 1
+              class Queue1 queue 1
+              class CLASS-DEFAULT queue 2
+              class Queue2 queue 2
+              class CLASS-BULK queue 3
+              class Queue3 queue 3
+              class CLASS-LOW-PRIORITY queue 4
+              class Queue4 queue 4
+      - name: cli_bgp_bfd
+        config:
+          description: edge cli template for bgp with bfd
+          cli_configuration: |
+            login on-failure log
+            platform console serial
+            ip bgp-community new-format
+            bfd-template single-hop test
+             interval min-tx 400 min-rx 400 multiplier 5
+            interface GigabitEthernet3
+              bfd template test
+            class-map match-any CLASS-BULK
+             match qos-group 3
+            class-map match-any CLASS-BUSINESS
+             match qos-group 1
+            class-map match-any CLASS-DEFAULT
+             match qos-group 2
+            class-map match-any CLASS-LOW-PRIORITY
+             match qos-group 4
+            class-map match-any CLASS-REALTIME
+             match qos-group 0
+            class-map match-any Queue0
+             match qos-group 0
+            class-map match-any Queue1
+             match qos-group 1
+            class-map match-any Queue2
+             match qos-group 2
+            class-map match-any Queue3
+             match qos-group 3
+            class-map match-any Queue4
+             match qos-group 4
+            policy-map QOS-MAP-1P4Q
+             class Queue0
+              police rate percent 10
+              priority level 1
+             class Queue1
+              bandwidth remaining ratio 40
+              random-detect precedence-based
+             class class-default
+              bandwidth remaining ratio 15
+              random-detect precedence-based
+             class Queue3
+              bandwidth remaining ratio 25
+              random-detect precedence-based
+             class Queue4
+              bandwidth remaining ratio 10
+              random-detect precedence-based
+            policy-map shape_GigabitEthernet1
+             class class-default
+              service-policy QOS-MAP-1P4Q
+            router bgp {{vpn10_bgp_as_number_cli}}
+            address-family ipv4 vrf 10
+             neighbor {{vpn10_bgp_ipv4_neighbor1_address_cli}} soft-reconfiguration inbound
+             neighbor {{vpn10_bgp_ipv4_neighbor1_address_cli}} fall-over bfd
+            policy
+             app-visibility
+             flow-visibility
+             class-map
+              class CLASS-REALTIME queue 0
+              class Queue0 queue 0
+              class CLASS-BUSINESS queue 1
+              class Queue1 queue 1
+              class CLASS-DEFAULT queue 2
+              class Queue2 queue 2
+              class CLASS-BULK queue 3
+              class Queue3 queue 3
+              class CLASS-LOW-PRIORITY queue 4
+              class Queue4 queue 4
+    service_profiles:
+      - name: service_lan_bgp
+        description: VPN 10 and VPN 11 service profile with BGP
+        route_policies:
+          - name: rm_site_bgp_to_omp_active
+            description: BGP to OMP - Active router for the VPN
+            default_action: accept
+            sequences:
+              - id: 1
+                base_action: accept
+                actions:
+                  omp_tag: 1111
+          - name: rm_site_bgp_to_omp_standby
+            description: BGP to OMP - Standby router for the VPN
+            default_action: accept
+            sequences:
+              - id: 1
+                base_action: accept
+                actions:
+                  omp_tag: 2222
+          - name: rm_site_bgp_out_active
+            description: BGP out - active router for the VPN
+            default_action: accept
+            sequences:
+              - id: 1
+                base_action: accept
+                actions:
+                  metric: 100
+          - name: rm_site_bgp_out_standby
+            description: BGP out - standby router for the VPN
+            default_action: accept
+            sequences:
+              - id: 1
+                base_action: accept
+                actions:
+                  metric: 200
+        bgp_features:
+          - name: bgp_feature_vpn10_primary
+            description: BGP configuration for VPN 10 (Primary)
+            router_id_variable: vpn10_bgp_router_id
+            as_number_variable: vpn10_bgp_as_number
+            propagate_community: true
+            ipv4_eibgp_maximum_paths: 2
+            ipv4_neighbors:
+              - address_variable: vpn10_bgp_ipv4_neighbor1_address
+                remote_as_variable: vpn10_bgp_ipv4_neighbor1_remote_as
+                password_variable: vpn10_bgp_ipv4_neighbor1_password
+                shutdown_variable: vpn10_bgp_ipv4_neighbor1_shutdown
+            ipv4_redistributes:
+              - protocol: omp
+                route_policy: rm_site_bgp_out_active
+          - name: bgp_feature_vpn10_secondary
+            description: BGP configuration for VPN 10 (Secondary)
+            router_id_variable: vpn10_bgp_router_id
+            as_number_variable: vpn10_bgp_as_number
+            ipv4_neighbors:
+              - address_variable: vpn10_bgp_ipv4_neighbor1_address
+                remote_as_variable: vpn10_bgp_ipv4_neighbor1_remote_as
+                password_variable: vpn10_bgp_ipv4_neighbor1_password
+                shutdown_variable: vpn10_bgp_ipv4_neighbor1_shutdown
+            ipv4_redistributes:
+              - protocol: omp
+                route_policy: rm_site_bgp_out_standby
+        lan_vpns:
+          - name: lan_vpn10_bgp_primary
+            description: VPN 10 PROD with BGP (Primary)
+            vpn_id: 10
+            bgp: bgp_feature_vpn10_primary
+            ipv4_omp_advertise_routes:
+              - protocol: bgp
+                route_policy: rm_site_bgp_to_omp_active
+              - protocol: static
+              - protocol: connected
+            ethernet_interfaces:
+              - name: vpn10_lan_interface_primary
+                interface_name_variable: vpn10_lan_if_name
+                interface_description_variable: vpn10_lan_if_description
+                shutdown_variable: vpn10_lan_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn10_lan_if_ipv4_address
+                ipv4_subnet_mask_variable: vpn10_lan_if_ipv4_subnet_mask
+              - name: vpn10_loopback10_primary
+                interface_name: Loopback10
+                interface_description: vpn10_Lo10_MGMT
+                shutdown_variable: vpn10_Lo10_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn10_Lo10_if_ipv4_address
+                ipv4_subnet_mask: 255.255.255.255
+          - name: lan_vpn10_bgp_secondary
+            description: VPN 10 PROD with BGP (Secondary)
+            vpn_id: 10
+            bgp: bgp_feature_vpn10_secondary
+            ipv4_omp_advertise_routes:
+              - protocol: bgp
+                route_policy: rm_site_bgp_to_omp_standby
+              - protocol: static
+              - protocol: connected
+            ethernet_interfaces:
+              - name: vpn10_lan_interface_secondary
+                interface_name_variable: vpn10_lan_if_name
+                interface_description_variable: vpn10_lan_if_description
+                shutdown_variable: vpn10_lan_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn10_lan_if_ipv4_address
+                ipv4_subnet_mask_variable: vpn10_lan_if_ipv4_subnet_mask
+              - name: vpn10_loopback10_secondary
+                interface_name: Loopback10
+                interface_description: vpn10_Lo10_MGMT
+                shutdown_variable: vpn10_Lo10_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn10_Lo10_if_ipv4_address
+                ipv4_subnet_mask: 255.255.255.255
+          - name: lan_vpn11_lan
+            description: VPN 11 DIA Guest basic LAN (Primary)
+            vpn_id: 11
+            ipv4_omp_advertise_routes:
+              - protocol: static
+              - protocol: connected
+            ipv4_static_routes:
+              - network_address_variable: vpn11_ipv4_route1_prefix
+                subnet_mask_variable: vpn11_ipv4_route1_subnet_mask
+                gateway: null0
+            ethernet_interfaces:
+              - name: vpn11_lan_interface
+                interface_name_variable: vpn11_lan_if_name
+                interface_description_variable: vpn11_lan_if_description
+                shutdown_variable: vpn11_lan_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn11_lan_if_ipv4_address
+                ipv4_subnet_mask_variable: vpn11_lan_if_ipv4_subnet_mask
+      - name: service_lan_ospf
+        description: VPN 10 and VPN 11 service profile with OSPF
+        route_policies:
+          - name: rm_site_omp_to_ospf_active
+            description: OMP to OSPF - Active router for the VPN
+            default_action: accept
+            sequences:
+              - id: 1
+                base_action: accept
+                actions:
+                  metric: 100
+                  metric_type: type2
+          - name: rm_site_omp_to_ospf_standby
+            description: OMP to OSPF - Standby router for the VPN
+            default_action: accept
+            sequences:
+              - id: 1
+                base_action: accept
+                actions:
+                  metric: 200
+                  metric_type: type2
+        ospf_features:
+          - name: ospf_feature_vpn10_primary
+            description: VPN 10 branch OSPF configuration (Primary)
+            router_id_variable: vpn10_ospf_router_id
+            areas:
+              - number: 0
+                interfaces:
+                  - name_variable: vpn10_ospf_area0_if_name
+                    passive: false
+                    cost: 1
+            redistributes:
+              - protocol: omp
+                route_policy: rm_site_omp_to_ospf_active
+          - name: ospf_feature_vpn10_secondary
+            description: VPN 10 branch OSPF configuration (Secondary)
+            router_id_variable: vpn10_ospf_router_id
+            areas:
+              - number: 0
+                interfaces:
+                  - name_variable: vpn10_ospf_area0_if_name
+                    passive: false
+                    cost: 1
+            redistributes:
+              - protocol: omp
+                route_policy: rm_site_omp_to_ospf_standby
+          - name: ospf_feature_vpn11_primary
+            description: VPN 11 branch OSPF configuration with default origination (Primary)
+            router_id_variable: vpn11_ospf_router_id
+            default_originate: true
+            default_originate_metric_variable: vpn11_ospf_default_metric
+            areas:
+              - number: 0
+                interfaces:
+                  - name_variable: vpn11_ospf_area0_if_name
+                    passive: false
+                    cost: 1
+            redistributes:
+              - protocol: omp
+                route_policy: rm_site_omp_to_ospf_active
+          - name: ospf_feature_vpn11_secondary
+            description: VPN 11 branch OSPF configuration with default origination (Secondary)
+            router_id_variable: vpn11_ospf_router_id
+            default_originate: true
+            default_originate_metric_variable: vpn11_ospf_default_metric
+            areas:
+              - number: 0
+                interfaces:
+                  - name_variable: vpn11_ospf_area0_if_name
+                    passive: false
+                    cost: 1
+            redistributes:
+              - protocol: omp
+                route_policy: rm_site_omp_to_ospf_standby
+        lan_vpns:
+          - name: lan_vpn10_ospf_primary
+            description: VPN 10 PROD with OSPF (Primary)
+            vpn_id: 10
+            ospf: ospf_feature_vpn10_primary
+            ipv4_omp_advertise_routes:
+              - protocol: ospf
+              - protocol: static
+              - protocol: connected
+            ethernet_interfaces:
+              - name: vpn10_lan_interface_primary
+                interface_name_variable: vpn10_lan_if_name
+                interface_description_variable: vpn10_lan_if_description
+                shutdown_variable: vpn10_lan_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn10_lan_if_ipv4_address
+                ipv4_subnet_mask_variable: vpn10_lan_if_ipv4_subnet_mask
+              - name: vpn10_loopback10_primary
+                interface_name: Loopback10
+                interface_description: vpn10_Lo10_MGMT
+                shutdown_variable: vpn10_Lo10_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn10_Lo10_if_ipv4_address
+                ipv4_subnet_mask: 255.255.255.255
+          - name: lan_vpn10_ospf_secondary
+            description: VPN 10 PROD with OSPF (Secondary)
+            vpn_id: 10
+            ospf: ospf_feature_vpn10_secondary
+            ipv4_omp_advertise_routes:
+              - protocol: ospf
+              - protocol: static
+              - protocol: connected
+            ethernet_interfaces:
+              - name: vpn10_lan_interface_secondary
+                interface_name_variable: vpn10_lan_if_name
+                interface_description_variable: vpn10_lan_if_description
+                shutdown_variable: vpn10_lan_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn10_lan_if_ipv4_address
+                ipv4_subnet_mask_variable: vpn10_lan_if_ipv4_subnet_mask
+              - name: vpn10_loopback10_secondary
+                interface_name: Loopback10
+                interface_description: vpn10_Lo10_MGMT
+                shutdown_variable: vpn10_Lo10_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn10_Lo10_if_ipv4_address
+                ipv4_subnet_mask: 255.255.255.255
+          - name: lan_vpn11_ospf_primary
+            description: VPN 11 DIA Guest with OSPF (Primary)
+            vpn_id: 11
+            ospf: ospf_feature_vpn11_primary
+            ipv4_omp_advertise_routes:
+              - protocol: ospf
+              - protocol: static
+              - protocol: connected
+            ethernet_interfaces:
+              - name: vpn11_lan_interface_primary
+                interface_name_variable: vpn11_lan_if_name
+                interface_description_variable: vpn11_lan_if_description
+                shutdown_variable: vpn11_lan_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn11_lan_if_ipv4_address
+                ipv4_subnet_mask_variable: vpn11_lan_if_ipv4_subnet_mask
+          - name: lan_vpn11_ospf_secondary
+            description: VPN 11 DIA Guest with OSPF (Secondary)
+            vpn_id: 11
+            ospf: ospf_feature_vpn11_secondary
+            ipv4_omp_advertise_routes:
+              - protocol: ospf
+              - protocol: static
+              - protocol: connected
+            ethernet_interfaces:
+              - name: vpn11_lan_interface_secondary
+                interface_name_variable: vpn11_lan_if_name
+                interface_description_variable: vpn11_lan_if_description
+                shutdown_variable: vpn11_lan_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn11_lan_if_ipv4_address
+                ipv4_subnet_mask_variable: vpn11_lan_if_ipv4_subnet_mask
+      - name: service_lan_vrrp_primary_dhcp
+        description: VPN 10 and VPN 11 service profile with static routing, VRRP-enabled LAN interfaces, and DHCP server (Primary device)
+        dhcp_servers:
+          - name: dhcp_server_vpn11
+            description: dia guest vpn dhcp server from ft-edge-vpn11-dhcp-lan-v01
+            pool_network_address_variable: vpn11_ipv4_lan_dhcp_address_pool
+            pool_subnet_mask_variable: vpn11_ipv4_lan_dhcp_subnet_mask
+            exclude_addresses_variable: vpn11_ipv4_lan_dhcp_exclude_addresses
+            lease_time: 3600
+            default_gateway_variable: vpn11_ipv4_lan_dhcp_default_gateway
+            dns_servers_variable: vpn11_ipv4_lan_dhcp_dns_servers
+            static_leases:
+              - ip_address_variable: vpn11_ipv4_lan_dhcp_static_addresses
+                mac_address_variable: vpn11_ipv4_lan_dhcp_static_mac
+        object_trackers:
+          - name: vpn10_vrrp_prefix_tracker
+            type: route
+            id: 10
+            route_ip: 0.0.0.0
+            route_mask: 0.0.0.0
+            vpn_id: 10
+        lan_vpns:
+          - name: lan_vpn10_vrrp_primary
+            description: VPN 10 PROD with VRRP and static routing
+            vpn_id: 10
+            ipv4_omp_advertise_routes:
+              - protocol: static
+              - protocol: connected
+            ipv4_static_routes:
+              - network_address_variable: vpn10_ipv4_route1_prefix
+                subnet_mask_variable: vpn10_ipv4_route1_subnet_mask
+                next_hops:
+                  - address_variable: vpn10_ipv4_route1_nexthop1_ip
+                    administrative_distance_variable: vpn10_ipv4_route1_nexthop1_distance
+            ethernet_interfaces:
+              - name: vpn10_lan_vrrp_interface
+                interface_name_variable: vpn10_lan_if_name
+                interface_description_variable: vpn10_lan_if_description
+                shutdown_variable: vpn10_lan_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn10_lan_if_ipv4_address
+                ipv4_subnet_mask_variable: vpn10_lan_if_ipv4_subnet_mask
+                ipv4_vrrp_groups:
+                  - id_variable: vpn10_lan_vrrp_group_id
+                    address_variable: vpn10_lan_vrrp_group_ip
+                    priority_variable: vpn10_lan_vrrp_group_priority
+                    timer_variable: vpn10_lan_vrrp_group_timer
+                    tloc_preference_change: false
+                    track_omp: true
+                    tracking_objects:
+                      - tracker_object: vpn10_vrrp_prefix_tracker
+                        action: decrement
+                        decrement_value: 10
+              - name: vpn10_loopback10
+                interface_name: Loopback10
+                interface_description: vpn10_Lo10_MGMT
+                shutdown_variable: vpn10_Lo10_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn10_Lo10_if_ipv4_address
+                ipv4_subnet_mask: 255.255.255.255
+          - name: lan_vpn11_vrrp_primary
+            description: VPN 11 DIA Guest with VRRP and DHCP server (Primary device)
+            vpn_id: 11
+            ipv4_omp_advertise_routes:
+              - protocol: static
+              - protocol: connected
+            ipv4_static_routes:
+              - network_address_variable: vpn11_ipv4_route1_prefix
+                subnet_mask_variable: vpn11_ipv4_route1_subnet_mask
+                next_hops:
+                  - address_variable: vpn11_ipv4_route1_nexthop1_ip
+                    administrative_distance: 1
+            ethernet_interfaces:
+              - name: vpn11_lan_vrrp_interface_dhcp
+                interface_name_variable: vpn11_lan_if_name
+                interface_description_variable: vpn11_lan_if_description
+                shutdown_variable: vpn11_lan_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn11_lan_if_ipv4_address
+                ipv4_subnet_mask_variable: vpn11_lan_if_ipv4_subnet_mask
+                dhcp_server: dhcp_server_vpn11
+                ipv4_vrrp_groups:
+                  - id_variable: vpn11_lan_vrrp_group_id
+                    address_variable: vpn11_lan_vrrp_group_ip
+                    priority_variable: vpn11_lan_vrrp_group_priority
+                    timer_variable: vpn11_lan_vrrp_group_timer
+                    tloc_preference_change: false
+                    track_omp: true
+      - name: service_lan_vrrp_secondary
+        description: VPN 10 and VPN 11 service profile with static routing, VRRP-enabled LAN interfaces (Secondary device)
+        object_trackers:
+          - name: vpn10_vrrp_prefix_tracker
+            type: route
+            id: 10
+            route_ip: 0.0.0.0
+            route_mask: 0.0.0.0
+            vpn_id: 10
+        lan_vpns:
+          - name: lan_vpn10_vrrp_secondary
+            description: VPN 10 PROD with VRRP and static routing
+            vpn_id: 10
+            ipv4_omp_advertise_routes:
+              - protocol: static
+              - protocol: connected
+            ipv4_static_routes:
+              - network_address_variable: vpn10_ipv4_route1_prefix
+                subnet_mask_variable: vpn10_ipv4_route1_subnet_mask
+                next_hops:
+                  - address_variable: vpn10_ipv4_route1_nexthop1_ip
+                    administrative_distance_variable: vpn10_ipv4_route1_nexthop1_distance
+            ethernet_interfaces:
+              - name: vpn10_lan_vrrp_interface
+                interface_name_variable: vpn10_lan_if_name
+                interface_description_variable: vpn10_lan_if_description
+                shutdown_variable: vpn10_lan_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn10_lan_if_ipv4_address
+                ipv4_subnet_mask_variable: vpn10_lan_if_ipv4_subnet_mask
+                ipv4_vrrp_groups:
+                  - id_variable: vpn10_lan_vrrp_group_id
+                    address_variable: vpn10_lan_vrrp_group_ip
+                    priority_variable: vpn10_lan_vrrp_group_priority
+                    timer_variable: vpn10_lan_vrrp_group_timer
+                    tloc_preference_change: false
+                    track_omp: true
+                    tracking_objects:
+                      - tracker_object: vpn10_vrrp_prefix_tracker
+                        action: decrement
+                        decrement_value: 10
+              - name: vpn10_loopback10
+                interface_name: Loopback10
+                interface_description: vpn10_Lo10_MGMT
+                shutdown_variable: vpn10_Lo10_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn10_Lo10_if_ipv4_address
+                ipv4_subnet_mask: 255.255.255.255
+          - name: lan_vpn11_vrrp_secondary
+            description: VPN 11 DIA Guest with VRRP (Secondary device)
+            vpn_id: 11
+            ipv4_omp_advertise_routes:
+              - protocol: static
+              - protocol: connected
+            ipv4_static_routes:
+              - network_address_variable: vpn11_ipv4_route1_prefix
+                subnet_mask_variable: vpn11_ipv4_route1_subnet_mask
+                next_hops:
+                  - address_variable: vpn11_ipv4_route1_nexthop1_ip
+                    administrative_distance: 1
+            ethernet_interfaces:
+              - name: vpn11_lan_vrrp_interface
+                interface_name_variable: vpn11_lan_if_name
+                interface_description_variable: vpn11_lan_if_description
+                shutdown_variable: vpn11_lan_if_shutdown
+                ipv4_configuration_type: static
+                ipv4_address_variable: vpn11_lan_if_ipv4_address
+                ipv4_subnet_mask_variable: vpn11_lan_if_ipv4_subnet_mask
+                ipv4_vrrp_groups:
+                  - id_variable: vpn11_lan_vrrp_group_id
+                    address_variable: vpn11_lan_vrrp_group_ip
+                    priority_variable: vpn11_lan_vrrp_group_priority
+                    timer_variable: vpn11_lan_vrrp_group_timer
+                    tloc_preference_change: false
+                    track_omp: true
+    system_profiles:
+      - name: system_hub
+        description: edge system profile, local authentication and SNMPv2
+        aaa:
+          auth_order:
+            - local
+          users:
+            - name: admin
+              password: $9$Z0/fvbP0PCTnR0$MQG6Ei8BzluQikrJutrzK3xrndqrHsdv2crKkJxEAiQ
+              privilege: 15
+            - name: failsafe
+              password: $9$Ee/8395fFoyr/f$n235oOU9sqyDEBxSh15T7L9uAlXzsmt0lMamya0ysJY
+              privilege: 15
+        banner:
+          login: "login banner: new"
+          motd: "motd banner: Hello World"
+        basic:
+          timezone_variable: timezone
+          latitude_variable: system_latitude
+          longitude_variable: system_longitude
+          console_baud_rate: 9600
+          controller_groups: [1,2]
+          idle_timeout: 300
+          location_variable: system_location
+          system_description_variable: system_description
+          transport_gateway: true
+        bfd:
+          poll_interval: 30000
+          multiplier: 4
+          colors:
+            - color: biz-internet
+              path_mtu_discovery: true
+            - color: mpls
+              path_mtu_discovery: true
+        logging:
+          ipv4_servers:
+            - hostname_ip: 192.168.0.25
+              severity: warn
+              vpn_id: 10
+              source_interface: Loopback10
+            - hostname_ip: 192.168.0.26
+              severity: warn
+              vpn_id: 10
+              source_interface: Loopback10
+        ntp:
+          servers:
+            - hostname_ip: 216.239.35.4
+              vpn_id: 0
+              prefer: true
+              source_interface_variable: ntp_server_source_interface
+            - hostname_ip: time-pnp.cisco.com
+              vpn_id: 0
+              prefer: false
+              source_interface_variable: ntp_server_source_interface
+        omp:
+          send_path_limit: 16
+          ecmp_limit: 16
+          graceful_restart: true
+          graceful_restart_timer: 86400
+          advertise_ipv4_bgp: true
+          advertise_ipv4_connected: true
+          advertise_ipv4_static: true
+          advertise_ipv4_ospf: true
+        global:
+          cdp_variable: global_cdp_enable
+          domain_lookup_variable: global_ip_domain_lookup_enable
+          lldp_variable: global_lldp_enable
+        security:
+          rekey_time: 172800
+          integrity_types:
+            - esp
+            - ip-udp-esp
+        ipv4_device_access_policy:
+          name: acl_device_access_policy_01
+          description: SSH and SNMP access control
+          default_action: drop
+          sequences:
+            - id: 1
+              name: seq1_ssh
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.10.0.0/16
+                destination_port: 22
+            - id: 2
+              name: seq2_ssh_vmanage
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 192.168.1.5/32
+                destination_port: 22
+            - id: 3
+              name: seq3_ssh
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.0.10.0/24
+                destination_port: 22
+            - id: 4
+              name: seq4_snmp
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.0.10.0/24
+                destination_port: 161
+        snmp:
+          description: SNMPv2 template
+          contact_person_variable: snmp_contact
+          location_variable: snmp_location
+          shutdown_variable: snmp_shutdown
+          trap_target_servers:
+            - ip: 172.16.0.11
+              port: 514
+              user_label: comm1
+              source_interface: Loopback10
+              vpn_id: 10
+            - ip: 172.16.0.12
+              port: 514
+              user_label: comm1
+              source_interface: Loopback10
+              vpn_id: 10
+          communities:
+            - name: cisco123
+              user_label: comm1
+              authorization: read-only
+              view: VIEW_ALL
+          views:
+            - name: VIEW_ALL
+              oids:
+                - id: "1.3"
+                  exclude: false
+      - name: system_branch_type1_primary
+        description: edge system profile with local authentication and SNMPv2
+        aaa:
+          auth_order:
+            - local
+          users:
+            - name: admin
+              password: $9$Z0/fvbP0PCTnR0$MQG6Ei8BzluQikrJutrzK3xrndqrHsdv2crKkJxEAiQ
+              privilege: 15
+            - name: failsafe
+              password: $9$Ee/8395fFoyr/f$n235oOU9sqyDEBxSh15T7L9uAlXzsmt0lMamya0ysJY
+              privilege: 15
+        banner:
+          login: "login banner: new"
+          motd: "motd banner: Hello World"
+        basic:
+          timezone_variable: timezone
+          latitude_variable: system_latitude
+          longitude_variable: system_longitude
+          console_baud_rate: 9600
+          controller_groups: [1,2]
+          idle_timeout: 300
+          location_variable: system_location
+          system_description_variable: system_description
+        bfd:
+          poll_interval: 30000
+          multiplier: 4
+          colors:
+            - color: biz-internet
+              path_mtu_discovery: true
+            - color: mpls
+              path_mtu_discovery: true
+        logging:
+          ipv4_servers:
+            - hostname_ip: 192.168.0.25
+              severity: warn
+              source_interface: Loopback10
+              vpn_id: 10
+            - hostname_ip: 192.168.0.26
+              severity: warn
+              source_interface: Loopback10
+              vpn_id: 10
+        ntp:
+          servers:
+            - hostname_ip: 216.239.35.4
+              vpn_id: 0
+              prefer: true
+              source_interface_variable: ntp_server_source_interface
+            - hostname_ip: time-pnp.cisco.com
+              vpn_id: 0
+              prefer: false
+              source_interface_variable: ntp_server_source_interface
+        omp:
+          send_path_limit: 16
+          ecmp_limit: 16
+          graceful_restart: true
+          graceful_restart_timer: 86400
+          advertise_ipv4_bgp: true
+          advertise_ipv4_connected: true
+          advertise_ipv4_static: true
+          advertise_ipv4_ospf: true
+        global:
+          cdp_variable: global_cdp_enable
+          domain_lookup_variable: global_ip_domain_lookup_enable
+          lldp_variable: global_lldp_enable
+        security:
+          rekey_time: 172800
+          integrity_types:
+            - esp
+            - ip-udp-esp
+        ipv4_device_access_policy:
+          name: acl_device_access_policy_01
+          description: SSH and SNMP access control
+          default_action: drop
+          sequences:
+            - id: 1
+              name: seq1_ssh
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.10.0.0/16
+                destination_port: 22
+            - id: 2
+              name: seq2_ssh_vmanage
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 192.168.1.5/32
+                destination_port: 22
+            - id: 3
+              name: seq3_ssh
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.0.10.0/24
+                destination_port: 22
+            - id: 4
+              name: seq4_snmp
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.0.10.0/24
+                destination_port: 161
+        snmp:
+          description: SNMPv2 template
+          contact_person_variable: snmp_contact
+          location_variable: snmp_location
+          shutdown_variable: snmp_shutdown
+          trap_target_servers:
+            - ip: 172.16.0.11
+              port: 514
+              user_label: comm1
+              source_interface: Loopback10
+              vpn_id: 10
+            - ip: 172.16.0.12
+              port: 514
+              user_label: comm1
+              source_interface: Loopback10
+              vpn_id: 10
+          communities:
+            - name: cisco123
+              user_label: comm1
+              authorization: read-only
+              view: VIEW_ALL
+          views:
+            - name: VIEW_ALL
+              oids:
+                - id: "1.3"
+                  exclude: false
+      - name: system_branch_type1_secondary
+        description: edge system profile with local authentication and SNMPv2
+        aaa:
+          auth_order:
+            - local
+          users:
+            - name: admin
+              password: $9$Z0/fvbP0PCTnR0$MQG6Ei8BzluQikrJutrzK3xrndqrHsdv2crKkJxEAiQ
+              privilege: 15
+            - name: failsafe
+              password: $9$Ee/8395fFoyr/f$n235oOU9sqyDEBxSh15T7L9uAlXzsmt0lMamya0ysJY
+              privilege: 15
+        banner:
+          login: "login banner: new"
+          motd: "motd banner: Hello World"
+        basic:
+          timezone_variable: timezone
+          latitude_variable: system_latitude
+          longitude_variable: system_longitude
+          console_baud_rate: 9600
+          controller_groups: [1,2]
+          idle_timeout: 300
+          location_variable: system_location
+          system_description_variable: system_description
+        bfd:
+          poll_interval: 30000
+          multiplier: 4
+          colors:
+            - color: biz-internet
+              path_mtu_discovery: true
+            - color: mpls
+              path_mtu_discovery: true
+        logging:
+          ipv4_servers:
+            - hostname_ip: 192.168.0.25
+              severity: warn
+              source_interface: Loopback10
+              vpn_id: 10
+            - hostname_ip: 192.168.0.26
+              severity: warn
+              source_interface: Loopback10
+              vpn_id: 10
+        ntp:
+          servers:
+            - hostname_ip: 216.239.35.4
+              vpn_id: 0
+              prefer: true
+              source_interface_variable: ntp_server_source_interface
+            - hostname_ip: time-pnp.cisco.com
+              vpn_id: 0
+              prefer: false
+              source_interface_variable: ntp_server_source_interface
+        omp:
+          send_path_limit: 16
+          ecmp_limit: 16
+          graceful_restart: true
+          graceful_restart_timer: 86400
+          advertise_ipv4_bgp: true
+          advertise_ipv4_connected: true
+          advertise_ipv4_static: true
+          advertise_ipv4_ospf: true
+        global:
+          cdp_variable: global_cdp_enable
+          domain_lookup_variable: global_ip_domain_lookup_enable
+          lldp_variable: global_lldp_enable
+        security:
+          rekey_time: 172800
+          integrity_types:
+            - esp
+            - ip-udp-esp
+        ipv4_device_access_policy:
+          name: acl_device_access_policy_01
+          description: SSH and SNMP access control
+          default_action: drop
+          sequences:
+            - id: 1
+              name: seq1_ssh
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.10.0.0/16
+                destination_port: 22
+            - id: 2
+              name: seq2_ssh_vmanage
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 192.168.1.5/32
+                destination_port: 22
+            - id: 3
+              name: seq3_ssh
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.0.10.0/24
+                destination_port: 22
+            - id: 4
+              name: seq4_snmp
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.0.10.0/24
+                destination_port: 161
+        snmp:
+          description: SNMPv2 template
+          contact_person_variable: snmp_contact
+          location_variable: snmp_location
+          shutdown_variable: snmp_shutdown
+          trap_target_servers:
+            - ip: 172.16.0.11
+              port: 514
+              user_label: comm1
+              source_interface: Loopback10
+              vpn_id: 10
+            - ip: 172.16.0.12
+              port: 514
+              user_label: comm1
+              source_interface: Loopback10
+              vpn_id: 10
+          communities:
+            - name: cisco123
+              user_label: comm1
+              authorization: read-only
+              view: VIEW_ALL
+          views:
+            - name: VIEW_ALL
+              oids:
+                - id: "1.3"
+                  exclude: false
+      - name: system_branch_type2
+        description: edge system profile with local authentication and SNMPv2
+        aaa:
+          auth_order:
+            - local
+          users:
+            - name: admin
+              password: $9$Z0/fvbP0PCTnR0$MQG6Ei8BzluQikrJutrzK3xrndqrHsdv2crKkJxEAiQ
+              privilege: 15
+            - name: failsafe
+              password: $9$Ee/8395fFoyr/f$n235oOU9sqyDEBxSh15T7L9uAlXzsmt0lMamya0ysJY
+              privilege: 15
+        banner:
+          login: "login banner: new"
+          motd: "motd banner: Hello World"
+        basic:
+          timezone_variable: timezone
+          latitude_variable: system_latitude
+          longitude_variable: system_longitude
+          console_baud_rate: 9600
+          controller_groups: [1,2]
+          idle_timeout: 300
+          location_variable: system_location
+          system_description_variable: system_description
+        bfd:
+          poll_interval: 30000
+          multiplier: 4
+          colors:
+            - color: biz-internet
+              path_mtu_discovery: true
+            - color: mpls
+              path_mtu_discovery: true
+        logging:
+          ipv4_servers:
+            - hostname_ip: 192.168.0.25
+              severity: warn
+              source_interface: Loopback10
+              vpn_id: 10
+            - hostname_ip: 192.168.0.26
+              severity: warn
+              source_interface: Loopback10
+              vpn_id: 10
+        ntp:
+          servers:
+            - hostname_ip: 216.239.35.4
+              vpn_id: 0
+              prefer: true
+              source_interface_variable: ntp_server_source_interface
+            - hostname_ip: time-pnp.cisco.com
+              vpn_id: 0
+              prefer: false
+              source_interface_variable: ntp_server_source_interface
+        omp:
+          send_path_limit: 16
+          ecmp_limit: 16
+          graceful_restart: true
+          graceful_restart_timer: 86400
+          advertise_ipv4_bgp: true
+          advertise_ipv4_connected: true
+          advertise_ipv4_static: true
+          advertise_ipv4_ospf: true
+        global:
+          cdp_variable: global_cdp_enable
+          domain_lookup_variable: global_ip_domain_lookup_enable
+          lldp_variable: global_lldp_enable
+        security:
+          rekey_time: 172800
+          integrity_types:
+            - esp
+            - ip-udp-esp
+        ipv4_device_access_policy:
+          name: acl_device_access_policy_01
+          description: SSH and SNMP access control
+          default_action: drop
+          sequences:
+            - id: 1
+              name: seq1_ssh
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.10.0.0/16
+                destination_port: 22
+            - id: 2
+              name: seq2_ssh_vmanage
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 192.168.1.5/32
+                destination_port: 22
+            - id: 3
+              name: seq3_ssh
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.0.10.0/24
+                destination_port: 22
+            - id: 4
+              name: seq4_snmp
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.0.10.0/24
+                destination_port: 161
+        snmp:
+          description: SNMPv2 template
+          contact_person_variable: snmp_contact
+          location_variable: snmp_location
+          shutdown_variable: snmp_shutdown
+          trap_target_servers:
+            - ip: 172.16.0.11
+              port: 514
+              user_label: comm1
+              source_interface: Loopback10
+              vpn_id: 10
+            - ip: 172.16.0.12
+              port: 514
+              user_label: comm1
+              source_interface: Loopback10
+              vpn_id: 10
+          communities:
+            - name: cisco123
+              user_label: comm1
+              authorization: read-only
+              view: VIEW_ALL
+          views:
+            - name: VIEW_ALL
+              oids:
+                - id: "1.3"
+                  exclude: false
+      - name: system_tacacs_auth_snmp_v3
+        description: edge system profile with tacacs and SNMPv3
+        aaa:
+          auth_order:
+            - local
+          tacacs_groups:
+            - source_interface: Loopback511
+              vpn: 511
+              servers:
+                - address: 10.1.1.1
+                  port: 49
+                  timeout: 120
+                  key: $CRYPT_CLUSTER$0A8/tHNPjmeM6FwSrCCU2Q==$4XN7WfJqZ7TgJWwt2Ob50A==
+                - address: 10.1.1.2
+                  key: $CRYPT_CLUSTER$0A8/tHNPjmeM6FwSrCCU2Q==$4XN7WfJqZ7TgJWwt2Ob50A==
+                  port: 49
+            - source_interface: Loopback511
+              vpn: 511
+              servers:
+                - address: 10.1.1.3
+                  key: $CRYPT_CLUSTER$0A8/tHNPjmeM6FwSrCCU2Q==$4XN7WfJqZ7TgJWwt2Ob50A==
+                  port: 49
+          users:
+            - name: admin
+              password: $9$Z0/fvbP0PCTnR0$MQG6Ei8BzluQikrJutrzK3xrndqrHsdv2crKkJxEAiQ
+              privilege: 15
+            - name: failsafe
+              password: $6$v0UN8x4fkvZd0Lnj$hq13MC.W5ElstGlolO38fshGEYxSechW4K5zEdrJD1trSH30AaNKvL4VUlOtxersGmIDNefPwyrSqbJpCpXGJ.
+              privilege: 15
+        banner:
+          login: "login banner: new"
+          motd: "motd banner: Hello World"
+        basic:
+          timezone_variable: timezone
+          latitude_variable: system_latitude
+          longitude_variable: system_longitude
+          console_baud_rate: 9600
+          controller_groups: [1,2]
+          idle_timeout: 300
+          location_variable: system_location
+          system_description_variable: system_description
+        bfd:
+          poll_interval: 30000
+          multiplier: 4
+          colors:
+            - color: biz-internet
+              path_mtu_discovery: true
+            - color: mpls
+              path_mtu_discovery: true
+        logging:
+          ipv4_servers:
+            - hostname_ip: 192.168.0.25
+              severity: warn
+              source_interface_variable: logging_server_source_interface
+              vpn_id: 10
+            - hostname_ip: 192.168.0.26
+              severity: warn
+              source_interface_variable: logging_server_source_interface
+              vpn_id: 10
+        ntp:
+          servers:
+            - hostname_ip: 216.239.35.4
+              vpn_id: 0
+              prefer: true
+              source_interface_variable: ntp_server_source_interface
+            - hostname_ip: time-pnp.cisco.com
+              vpn_id: 0
+              prefer: false
+              source_interface_variable: ntp_server_source_interface
+        omp:
+          send_path_limit: 16
+          ecmp_limit: 16
+          graceful_restart: true
+          graceful_restart_timer: 86400
+          advertise_ipv4_bgp: true
+          advertise_ipv4_connected: true
+          advertise_ipv4_static: true
+          advertise_ipv4_ospf: true
+        global:
+          cdp_variable: global_cdp_enable
+          domain_lookup_variable: global_ip_domain_lookup_enable
+          lldp_variable: global_lldp_enable
+        security:
+          rekey_time: 172800
+          integrity_types:
+            - esp
+            - ip-udp-esp
+        ipv4_device_access_policy:
+          name: acl_device_access_policy_01
+          description: SSH and SNMP access control
+          default_action: drop
+          sequences:
+            - id: 1
+              name: seq1_ssh
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.10.0.0/16
+                destination_port: 22
+            - id: 2
+              name: seq2_ssh_vmanage
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 192.168.1.5/32
+                destination_port: 22
+            - id: 3
+              name: seq3_ssh
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.0.10.0/24
+                destination_port: 22
+            - id: 4
+              name: seq4_snmp
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.0.10.0/24
+                destination_port: 161
+        snmp:
+          contact_person_variable: snmp_contact
+          location_variable: snmp_location
+          shutdown_variable: snmp_shutdown
+          groups:
+            - name: GROUP_NOAUTH_NOPRIV
+              security_level: no-auth-no-priv
+              view: VIEW_ALL
+            - name: GROUP_AUTH_NOPRIV
+              security_level: auth-no-priv
+              view: VIEW_ALL
+            - name: GROUP_AUTH_PRIV
+              security_level: auth-priv
+              view: VIEW_ALL
+          users:
+            - name: user01
+              group: GROUP_NOAUTH_NOPRIV
+            - name: user02
+              group: GROUP_AUTH_NOPRIV
+              authentication_protocol: sha
+              authentication_password: $CRYPT_CLUSTER$GU+PR6WV3va2QY07wG6Z6w==$INccS/tPm4BdiwzuP6lUJw==
+            - name: user03
+              group: GROUP_AUTH_PRIV
+              authentication_protocol: sha
+              authentication_password: $CRYPT_CLUSTER$GU+PR6WV3va2QY07wG6Z6w==$INccS/tPm4BdiwzuP6lUJw==
+              privacy_protocol: aes-cfb-128
+              privacy_password: $CRYPT_CLUSTER$GU+PR6WV3va2QY07wG6Z6w==$INccS/tPm4BdiwzuP6lUJw==
+          views:
+            - name: VIEW_ALL
+              oids:
+                - id: "1.3"
+                  exclude: false
+            - name: VIEW_ALL2
+              oids:
+                - id: "1.3"
+                  exclude: false
+          trap_target_servers:
+            - ip: 172.16.0.11
+              port: 514
+              user: user01
+              source_interface_variable: snmp_trap_source_interface
+              vpn_id: 10
+      - name: system_radius_auth_snmp_v3
+        description: edge system profile with radius and SNMPv3
+        aaa:
+          auth_order:
+            - local
+          radius_groups:
+            - source_interface: Loopback511
+              vpn: 511
+              servers:
+                - address: 10.1.1.1
+                  accounting_port: 1813
+                  authentication_port: 1812
+                  key: $CRYPT_CLUSTER$ENUwbbutISa31iAXuryRqQ==$CVy9EkMrtaPjTUFxNPv/QA==
+                  retransmit: 3
+                  timeout: 5
+                - address: 10.1.1.2
+                  accounting_port: 1813
+                  authentication_port: 1812
+                  key: $CRYPT_CLUSTER$ENUwbbutISa31iAXuryRqQ==$CVy9EkMrtaPjTUFxNPv/QA==
+                  retransmit: 3
+                  timeout: 5
+            - source_interface: Loopback511
+              vpn: 511
+              servers:
+                - address: 10.1.1.3
+                  accounting_port: 1813
+                  authentication_port: 1812
+                  key: $CRYPT_CLUSTER$ENUwbbutISa31iAXuryRqQ==$CVy9EkMrtaPjTUFxNPv/QA==
+                  retransmit: 3
+                  timeout: 5
+          users:
+            - name: admin
+              password: $9$Z0/fvbP0PCTnR0$MQG6Ei8BzluQikrJutrzK3xrndqrHsdv2crKkJxEAiQ
+              privilege: 15
+            - name: failsafe
+              password: $9$Z0/fvbP0PCTnR0$MQG6Ei8BzluQikrJutrzK3xrndqrHsdv2crKkJxEAiQ
+              privilege: 15
+        banner:
+          login: "login banner: new"
+          motd: "motd banner: Hello World"
+        basic:
+          timezone_variable: timezone
+          latitude_variable: system_latitude
+          longitude_variable: system_longitude
+          console_baud_rate: 9600
+          idle_timeout: 300
+          location_variable: system_location
+          system_description_variable: system_description
+        bfd:
+          poll_interval: 30000
+          multiplier: 4
+          colors:
+            - color: biz-internet
+              path_mtu_discovery: true
+            - color: mpls
+              path_mtu_discovery: true
+        logging:
+          ipv4_servers:
+            - hostname_ip: 192.168.0.25
+              severity: warn
+              source_interface_variable: logging_server_source_interface
+              vpn_id: 10
+            - hostname_ip: 192.168.0.26
+              severity: warn
+              source_interface_variable: logging_server_source_interface
+              vpn_id: 10
+        ntp:
+          servers:
+            - hostname_ip: 216.239.35.4
+              vpn_id: 0
+              prefer: true
+              source_interface_variable: ntp_server_source_interface
+            - hostname_ip: time-pnp.cisco.com
+              vpn_id: 0
+              prefer: false
+              source_interface_variable: ntp_server_source_interface
+        omp:
+          send_path_limit: 16
+          ecmp_limit: 16
+          graceful_restart: true
+          graceful_restart_timer: 86400
+          advertise_ipv4_bgp: true
+          advertise_ipv4_connected: true
+          advertise_ipv4_static: true
+          advertise_ipv4_ospf: true
+        global:
+          cdp_variable: global_cdp_enable
+          domain_lookup_variable: global_ip_domain_lookup_enable
+          lldp_variable: global_lldp_enable
+        security:
+          rekey_time: 172800
+          integrity_types:
+            - esp
+            - ip-udp-esp
+        ipv4_device_access_policy:
+          name: acl_device_access_policy_01
+          description: SSH and SNMP access control
+          default_action: drop
+          sequences:
+            - id: 1
+              name: seq1_ssh
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.10.0.0/16
+                destination_port: 22
+            - id: 2
+              name: seq2_ssh_vmanage
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 192.168.1.5/32
+                destination_port: 22
+            - id: 3
+              name: seq3_ssh
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.0.10.0/24
+                destination_port: 22
+            - id: 4
+              name: seq4_snmp
+              base_action: accept
+              match_entries:
+                source_data_prefixes:
+                  - 10.0.10.0/24
+                destination_port: 161
+        snmp:
+          contact_person_variable: snmp_contact
+          location_variable: snmp_location
+          shutdown_variable: snmp_shutdown
+          groups:
+            - name: GROUP_NOAUTH_NOPRIV
+              security_level: no-auth-no-priv
+              view: VIEW_ALL
+            - name: GROUP_AUTH_NOPRIV
+              security_level: auth-no-priv
+              view: VIEW_ALL
+            - name: GROUP_AUTH_PRIV
+              security_level: auth-priv
+              view: VIEW_ALL
+          users:
+            - name: user01
+              group: GROUP_NOAUTH_NOPRIV
+            - name: user02
+              group: GROUP_AUTH_NOPRIV
+              authentication_protocol: sha
+              authentication_password: $CRYPT_CLUSTER$GU+PR6WV3va2QY07wG6Z6w==$INccS/tPm4BdiwzuP6lUJw==
+            - name: user03
+              group: GROUP_AUTH_PRIV
+              authentication_protocol: sha
+              authentication_password: $CRYPT_CLUSTER$GU+PR6WV3va2QY07wG6Z6w==$INccS/tPm4BdiwzuP6lUJw==
+              privacy_protocol: aes-cfb-128
+              privacy_password: $CRYPT_CLUSTER$GU+PR6WV3va2QY07wG6Z6w==$INccS/tPm4BdiwzuP6lUJw==
+          views:
+            - name: VIEW_ALL
+              oids:
+                - id: "1.3"
+                  exclude: false
+            - name: VIEW_ALL2
+              oids:
+                - id: "1.3"
+                  exclude: false
+          trap_target_servers:
+            - ip: 172.16.0.11
+              port: 514
+              user: user01
+              source_interface_variable: snmp_trap_source_interface
+              vpn_id: 10
+    transport_profiles:
+      - name: transport_static
+        description: transport profile for devices with two directly connect TLOCs and static IPs
+        wan_vpn:
+          ipv4_primary_dns_address_variable: vpn0_primary_dns
+          ipv4_secondary_dns_address_variable: vpn0_secondary_dns
+          enhance_ecmp_keying: true
+          ipv4_static_routes:
+            - network_address: 0.0.0.0
+              subnet_mask: 0.0.0.0
+              next_hops:
+                - address_variable: vpn0_default_gw1
+                - address_variable: vpn0_default_gw2
+          ethernet_interfaces:
+            - name: tloc01_public
+              interface_name_variable: vpn0_tloc01_if_name
+              interface_description_variable: vpn0_tloc01_if_description
+              shutdown_variable: vpn0_tloc01_if_shutdown
+              shaping_rate_variable: vpn0_tloc01_shaping_rate
+              ipv4_configuration_type: static
+              ipv6_configuration_type: none
+              ipv4_address_variable: vpn0_tloc01_ipv4_address
+              ipv4_subnet_mask_variable: vpn0_tloc01_ipv4_subnet_mask
+              ipv4_nat: true
+              ipv4_nat_type: interface
+              tunnel_interface:
+                color_variable: vpn0_tloc01_tunnel_color
+                restrict_variable: vpn0_tloc01_tunnel_restrict
+                ipsec_preference_variable: vpn0_tloc01_tunnel_ipsec_preference
+                ipsec_weight_variable: vpn0_tloc01_tunnel_weight
+                group_variable: vpn0_tloc01_tunnel_group
+                hello_interval: 1000
+                hello_tolerance: 12
+                vmanage_connection_preference_variable: vpn0_tloc01_tunnel_vmanage_connection_preference
+                allow_service_dhcp: true
+                allow_service_dns: true
+                allow_service_icmp: true
+                allow_service_ntp: true
+                allow_service_bgp: false
+                allow_service_https: false
+                allow_service_netconf: false
+                allow_service_ospf: false
+                allow_service_snmp: false
+                allow_service_ssh: false
+                allow_service_stun: false
+            - name: tloc02_private
+              interface_name_variable: vpn0_tloc02_if_name
+              interface_description_variable: vpn0_tloc02_if_description
+              shutdown_variable: vpn0_tloc02_if_shutdown
+              shaping_rate_variable: vpn0_tloc02_shaping_rate
+              ipv4_configuration_type: static
+              ipv6_configuration_type: none
+              ipv4_address_variable: vpn0_tloc02_ipv4_address
+              ipv4_subnet_mask_variable: vpn0_tloc02_ipv4_subnet_mask
+              tunnel_interface:
+                color_variable: vpn0_tloc02_tunnel_color
+                restrict_variable: vpn0_tloc02_tunnel_restrict
+                ipsec_preference_variable: vpn0_tloc02_tunnel_ipsec_preference
+                ipsec_weight_variable: vpn0_tloc02_tunnel_weight
+                group_variable: vpn0_tloc02_tunnel_group
+                hello_interval: 1000
+                hello_tolerance: 12
+                vmanage_connection_preference_variable: vpn0_tloc02_tunnel_vmanage_connection_preference
+                allow_service_dhcp: true
+                allow_service_dns: true
+                allow_service_icmp: true
+                allow_service_ntp: true
+                allow_service_bgp: false
+                allow_service_https: false
+                allow_service_netconf: false
+                allow_service_ospf: false
+                allow_service_snmp: false
+                allow_service_ssh: false
+                allow_service_stun: false
+        management_vpn:
+          ethernet_interfaces:
+            - name: mgmt_interface
+              interface_name_variable: vpn512_oob_if_name
+              ipv4_configuration_type: dynamic
+              interface_description: mgmt int
+              shutdown_variable: vpn512_oob_if_shutdown
+      - name: transport_dynamic_dhcp
+        description: transport profile for wan interfaces with dhcp
+        wan_vpn:
+          ipv4_primary_dns_address_variable: vpn0_primary_dns
+          ipv4_secondary_dns_address_variable: vpn0_secondary_dns
+          enhance_ecmp_keying: true
+          ethernet_interfaces:
+            - name: tloc01_public_dhcp
+              interface_name_variable: vpn0_tloc01_if_name
+              interface_description_variable: vpn0_tloc01_if_description
+              shutdown_variable: vpn0_tloc01_if_shutdown
+              shaping_rate_variable: vpn0_tloc01_shaping_rate
+              ipv4_configuration_type: dynamic
+              ipv6_configuration_type: none
+              ipv4_dhcp_distance: 1
+              ipv4_nat: true
+              ipv4_nat_type: interface
+              tunnel_interface:
+                color_variable: vpn0_tloc01_tunnel_color
+                restrict_variable: vpn0_tloc01_tunnel_restrict
+                ipsec_preference_variable: vpn0_tloc01_tunnel_ipsec_preference
+                ipsec_weight_variable: vpn0_tloc01_tunnel_weight
+                group_variable: vpn0_tloc01_tunnel_group
+                hello_interval: 1000
+                hello_tolerance: 12
+                vmanage_connection_preference_variable: vpn0_tloc01_tunnel_vmanage_connection_preference
+                allow_service_dhcp: true
+                allow_service_dns: true
+                allow_service_icmp: true
+                allow_service_ntp: true
+                allow_service_bgp: false
+                allow_service_https: false
+                allow_service_netconf: false
+                allow_service_ospf: false
+                allow_service_snmp: false
+                allow_service_ssh: false
+                allow_service_stun: false
+            - name: tloc02_private_dhcp
+              interface_name_variable: vpn0_tloc02_if_name
+              interface_description_variable: vpn0_tloc02_if_description
+              shutdown_variable: vpn0_tloc02_if_shutdown
+              shaping_rate_variable: vpn0_tloc02_shaping_rate
+              ipv4_configuration_type: dynamic
+              ipv6_configuration_type: none
+              ipv4_dhcp_distance: 1
+              tunnel_interface:
+                color_variable: vpn0_tloc02_tunnel_color
+                restrict_variable: vpn0_tloc02_tunnel_restrict
+                ipsec_preference_variable: vpn0_tloc02_tunnel_ipsec_preference
+                ipsec_weight_variable: vpn0_tloc02_tunnel_weight
+                group_variable: vpn0_tloc02_tunnel_group
+                hello_interval: 1000
+                hello_tolerance: 12
+                vmanage_connection_preference_variable: vpn0_tloc02_tunnel_vmanage_connection_preference
+                allow_service_dhcp: true
+                allow_service_dns: true
+                allow_service_icmp: true
+                allow_service_ntp: true
+                allow_service_bgp: false
+                allow_service_https: false
+                allow_service_netconf: false
+                allow_service_ospf: false
+                allow_service_snmp: false
+                allow_service_ssh: false
+                allow_service_stun: false
+        management_vpn:
+          ethernet_interfaces:
+            - name: mgmt_interface
+              interface_name_variable: vpn512_oob_if_name
+              ipv4_configuration_type: dynamic
+              interface_description: mgmt int
+              shutdown_variable: vpn512_oob_if_shutdown
+      - name: transport_static_tloc_ext
+        description: transport profile for devices with TLOC-ext and static IPs
+        wan_vpn:
+          ipv4_primary_dns_address_variable: vpn0_primary_dns
+          ipv4_secondary_dns_address_variable: vpn0_secondary_dns
+          enhance_ecmp_keying: true
+          ipv4_static_routes:
+            - network_address: 0.0.0.0
+              subnet_mask: 0.0.0.0
+              next_hops:
+                - address_variable: vpn0_default_gw1
+                - address_variable: vpn0_default_gw2
+          ethernet_interfaces:
+            - name: tloc01_public
+              interface_name_variable: vpn0_tloc01_if_name
+              interface_description_variable: vpn0_tloc01_if_description
+              shutdown_variable: vpn0_tloc01_if_shutdown
+              shaping_rate_variable: vpn0_tloc01_shaping_rate
+              ipv4_configuration_type: static
+              ipv6_configuration_type: none
+              ipv4_address_variable: vpn0_tloc01_ipv4_address
+              ipv4_subnet_mask_variable: vpn0_tloc01_ipv4_subnet_mask
+              ipv4_nat: true
+              ipv4_nat_type: interface
+              tunnel_interface:
+                color_variable: vpn0_tloc01_tunnel_color
+                restrict_variable: vpn0_tloc01_tunnel_restrict
+                ipsec_preference_variable: vpn0_tloc01_tunnel_ipsec_preference
+                ipsec_weight_variable: vpn0_tloc01_tunnel_weight
+                group_variable: vpn0_tloc01_tunnel_group
+                hello_interval: 1000
+                hello_tolerance: 12
+                vmanage_connection_preference_variable: vpn0_tloc01_tunnel_vmanage_connection_preference
+                allow_service_dhcp: true
+                allow_service_dns: true
+                allow_service_icmp: true
+                allow_service_ntp: true
+                allow_service_bgp: false
+                allow_service_https: false
+                allow_service_netconf: false
+                allow_service_ospf: false
+                allow_service_snmp: false
+                allow_service_ssh: false
+                allow_service_stun: false
+            - name: tloc02_private
+              interface_name_variable: vpn0_tloc02_if_name
+              interface_description_variable: vpn0_tloc02_if_description
+              shutdown_variable: vpn0_tloc02_if_shutdown
+              shaping_rate_variable: vpn0_tloc02_shaping_rate
+              ipv4_configuration_type: static
+              ipv6_configuration_type: none
+              ipv4_address_variable: vpn0_tloc02_ipv4_address
+              ipv4_subnet_mask_variable: vpn0_tloc02_ipv4_subnet_mask
+              tunnel_interface:
+                color_variable: vpn0_tloc02_tunnel_color
+                restrict_variable: vpn0_tloc02_tunnel_restrict
+                ipsec_preference_variable: vpn0_tloc02_tunnel_ipsec_preference
+                ipsec_weight_variable: vpn0_tloc02_tunnel_weight
+                group_variable: vpn0_tloc02_tunnel_group
+                hello_interval: 1000
+                hello_tolerance: 12
+                vmanage_connection_preference_variable: vpn0_tloc02_tunnel_vmanage_connection_preference
+                allow_service_dhcp: true
+                allow_service_dns: true
+                allow_service_icmp: true
+                allow_service_ntp: true
+                allow_service_bgp: false
+                allow_service_https: false
+                allow_service_netconf: false
+                allow_service_ospf: false
+                allow_service_snmp: false
+                allow_service_ssh: false
+                allow_service_stun: false
+            - name: tloc_ext
+              interface_name_variable: vpn0_tloc_ext_name
+              interface_description_variable: vpn0_tloc_ext_if_description
+              shutdown_variable: vpn0_tloc_ext_shutdown
+              ipv4_configuration_type: static
+              ipv6_configuration_type: dynamic
+              ipv4_address_variable: vpn0_tloc_ext_ipv4_address
+              ipv4_subnet_mask_variable: vpn0_tloc_ext_ipv4_subnet_mask
+              tloc_extension_variable: vpn0_tloc_ext_to_int_name
+        management_vpn:
+          ethernet_interfaces:
+            - name: mgmt_interface
+              interface_name_variable: vpn512_oob_if_name
+              ipv4_configuration_type: dynamic
+              interface_description: mgmt int
+              shutdown_variable: vpn512_oob_if_shutdown
