@@ -2,363 +2,15 @@
 # SD-WAN Sites
 sdwan:
   sites:
-    # - id: 100
-    #   routers:
-    #     - chassis_id: C8K-40C0CCFD-9EA8-2B2E-E73B-32C5924EC79B
-    #       model: C8000V
-    #       device_template: DT-DC-C8000V-01
-    #       device_variables:
-    #         site_id: 100
-    #         system_ip: 10.0.0.1
-    #         system_hostname: SD-DC-C8KV-01
-    #         controller_groups: 1,2
-    #         logging_server_source_interface: Loopback10
-    #         ntp_server_source_interface: GigabitEthernet1
-    #         global_cdp_enable: true
-    #         global_lldp_enable: false
-    #         global_ip_domain_lookup_enable: true
-    #         snmp_shutdown: false
-    #         snmp_trap_source_interface: Loopback10
-    #         snmp_contact: contact@acme.com
-    #         snmp_location: Location DC
-    #         system_location: DC-Main
-    #         system_description: Site DC C8KV01
-    #         timezone: UTC
-    #         system_latitude: 38.1
-    #         system_longitude: -1.9
-    #         ondemand_tunnel_enable: false
-    #         ondemand_tunnel_idle_timeout: 10
-    #         vpn0_layer4_ecmp_enable: true
-    #         vpn0_dns_primary: 172.16.1.254
-    #         vpn0_dns_secondary: 172.16.2.254
-    #         vpn0_ipv4_route1_nexthop1_ip: 172.16.1.254
-    #         vpn0_ipv4_route1_nexthop1_distance: 1
-    #         vpn0_ipv4_route1_nexthop2_ip: 172.16.2.254
-    #         vpn0_ipv4_route1_nexthop2_distance: 1
-    #         vpn0_tloc01_if_name: GigabitEthernet1
-    #         vpn0_tloc01_if_ipv4_address: 172.16.1.1/24
-    #         vpn0_tloc01_if_description: INET-1
-    #         vpn0_tloc01_if_shutdown: false
-    #         vpn0_tloc01_shaping_rate: 1000000
-    #         vpn0_tloc01_tunnel_ipsec_preference: 1
-    #         vpn0_tloc01_tunnel_weight: 1
-    #         vpn0_tloc01_tunnel_color: biz-internet
-    #         vpn0_tloc01_tunnel_group: 100
-    #         vpn0_tloc01_tunnel_restrict: false
-    #         vpn0_tloc01_tunnel_vmanage_connection_preference: 5
-    #         vpn0_tloc02_if_name: GigabitEthernet2
-    #         vpn0_tloc02_if_ipv4_address: 172.16.2.1/24
-    #         vpn0_tloc02_if_description: MPLS-1
-    #         vpn0_tloc02_if_shutdown: false
-    #         vpn0_tloc02_shaping_rate: 1000000
-    #         vpn0_tloc02_tunnel_ipsec_preference: 1
-    #         vpn0_tloc02_tunnel_weight: 1
-    #         vpn0_tloc02_tunnel_color: mpls
-    #         vpn0_tloc02_tunnel_group: 200
-    #         vpn0_tloc02_tunnel_restrict: false
-    #         vpn0_tloc02_tunnel_vmanage_connection_preference: 5
-    #         vpn10_lan_if_name: GigabitEthernet3
-    #         vpn10_lan_if_description: vpn10 LAN1
-    #         vpn10_lan_if_shutdown: false
-    #         vpn10_lan_if_ipv4_address: 10.10.1.2/24
-    #         vpn10_Lo10_if_ipv4_address: 10.0.10.1/32
-    #         vpn10_Lo10_if_shutdown: false
-    #         vpn10_adv_omp_ipv4_bgp_rm: RM-SITE-BGP-TO-OMP-ACTIVE
-    #         vpn11_lan_if_name: GigabitEthernet4
-    #         vpn11_lan_if_description: vpn11 LAN1
-    #         vpn11_lan_if_shutdown: false
-    #         vpn11_lan_if_ipv4_address: 10.11.1.2/24
-    #         vpn11_ipv4_route1_prefix: 0.0.0.0/0
-    #         vpn11_ipv4_route1_nexthop1_ip: Null0
-    #         vpn11_ipv4_route1_nexthop1_distance: 1
-    #         vpn10_bgp_as_number: 4000000000
-    #         vpn10_bgp_shutdown: false
-    #         vpn10_bgp_ipv4_maximum_paths: 2
-    #         vpn10_bgp_ipv4_rm_omp_to_bgp: RM-SITE-BGP-OUT-ACTIVE
-    #         vpn10_bgp_ipv4_neighbor1_address: 10.10.1.10
-    #         vpn10_bgp_ipv4_neighbor1_shutdown: false
-    #         vpn10_bgp_ipv4_neighbor1_remote_as: 64555
-    #         vpn10_bgp_ipv4_neighbor1_password: cisco123
-    #         vpn10_bgp_ipv4_neighbor1_address_cli: 10.10.1.10
-    #         vpn10_bgp_as_number_cli: 4000000000
-    #         vpn10_bgp_ipv4_neighbor2_address: TEMPLATE_IGNORE
-    #         vpn10_bgp_ipv4_neighbor2_shutdown: TEMPLATE_IGNORE
-    #         vpn10_bgp_ipv4_neighbor2_remote_as: TEMPLATE_IGNORE
-    #         vpn10_bgp_ipv4_neighbor2_password: TEMPLATE_IGNORE
-    #         vpn512_oob_if_name: GigabitEthernet8
-    #         vpn512_oob_if_description: OOB-mgmt
-    #         vpn512_oob_if_shutdown: false
-    #     - chassis_id: C8K-E94D7B88-4B9E-3323-C6C3-F29079FAAC3B
-    #       model: C8000V
-    #       device_template: DT-DC-C8000V-01
-    #       device_variables:
-    #         site_id: 100
-    #         system_ip: 10.0.0.2
-    #         system_hostname: SD-DC-C8KV-02
-    #         controller_groups: 1,2
-    #         logging_server_source_interface: Loopback10
-    #         ntp_server_source_interface: GigabitEthernet1
-    #         global_cdp_enable: true
-    #         global_lldp_enable: false
-    #         global_ip_domain_lookup_enable: true
-    #         snmp_shutdown: false
-    #         snmp_trap_source_interface: Loopback10
-    #         snmp_contact: contact@acme.com
-    #         snmp_location: Location DC
-    #         system_location: DC-Main
-    #         system_description: Site 100 C8KV01
-    #         timezone: UTC
-    #         system_latitude: 38.1
-    #         system_longitude: -1.9
-    #         ondemand_tunnel_enable: false
-    #         ondemand_tunnel_idle_timeout: 10
-    #         vpn0_layer4_ecmp_enable: true
-    #         vpn0_dns_primary: 172.16.1.254
-    #         vpn0_dns_secondary: 172.16.2.254
-    #         vpn0_ipv4_route1_nexthop1_ip: 172.16.1.254
-    #         vpn0_ipv4_route1_nexthop1_distance: 1
-    #         vpn0_ipv4_route1_nexthop2_ip: 172.16.2.254
-    #         vpn0_ipv4_route1_nexthop2_distance: 1
-    #         vpn0_tloc01_if_name: GigabitEthernet1
-    #         vpn0_tloc01_if_ipv4_address: 172.16.1.2/24
-    #         vpn0_tloc01_if_description: INET-1
-    #         vpn0_tloc01_if_shutdown: false
-    #         vpn0_tloc01_shaping_rate: 1000000
-    #         vpn0_tloc01_tunnel_ipsec_preference: 1
-    #         vpn0_tloc01_tunnel_weight: 1
-    #         vpn0_tloc01_tunnel_color: biz-internet
-    #         vpn0_tloc01_tunnel_group: 100
-    #         vpn0_tloc01_tunnel_restrict: false
-    #         vpn0_tloc01_tunnel_vmanage_connection_preference: 5
-    #         vpn0_tloc02_if_name: GigabitEthernet2
-    #         vpn0_tloc02_if_ipv4_address: 172.16.2.2/24
-    #         vpn0_tloc02_if_description: MPLS-1
-    #         vpn0_tloc02_if_shutdown: false
-    #         vpn0_tloc02_shaping_rate: 1000000
-    #         vpn0_tloc02_tunnel_ipsec_preference: 1
-    #         vpn0_tloc02_tunnel_weight: 1
-    #         vpn0_tloc02_tunnel_color: mpls
-    #         vpn0_tloc02_tunnel_group: 200
-    #         vpn0_tloc02_tunnel_restrict: false
-    #         vpn0_tloc02_tunnel_vmanage_connection_preference: 5
-    #         vpn10_lan_if_name: GigabitEthernet3
-    #         vpn10_lan_if_description: vpn10 LAN1
-    #         vpn10_lan_if_shutdown: false
-    #         vpn10_lan_if_ipv4_address: 10.10.1.3/24
-    #         vpn10_Lo10_if_ipv4_address: 10.0.10.2/32
-    #         vpn10_Lo10_if_shutdown: false
-    #         vpn10_adv_omp_ipv4_bgp_rm: RM-SITE-BGP-TO-OMP-STANDBY
-    #         vpn11_lan_if_name: GigabitEthernet4
-    #         vpn11_lan_if_description: vpn11 LAN1
-    #         vpn11_lan_if_shutdown: false
-    #         vpn11_lan_if_ipv4_address: 10.11.1.3/24
-    #         vpn11_ipv4_route1_prefix: 0.0.0.0/0
-    #         vpn11_ipv4_route1_nexthop1_ip: Null0
-    #         vpn11_ipv4_route1_nexthop1_distance: 1
-    #         vpn10_bgp_as_number: 4000000000
-    #         vpn10_bgp_shutdown: false
-    #         vpn10_bgp_ipv4_maximum_paths: 2
-    #         vpn10_bgp_ipv4_rm_omp_to_bgp: RM-SITE-BGP-OUT-STANDBY
-    #         vpn10_bgp_ipv4_neighbor1_address: 10.10.1.10
-    #         vpn10_bgp_ipv4_neighbor1_shutdown: false
-    #         vpn10_bgp_ipv4_neighbor1_remote_as: 64555
-    #         vpn10_bgp_ipv4_neighbor1_password: cisco123
-    #         vpn10_bgp_ipv4_neighbor1_address_cli: 10.10.1.10
-    #         vpn10_bgp_as_number_cli: 4000000000
-    #         vpn10_bgp_ipv4_neighbor2_address: TEMPLATE_IGNORE
-    #         vpn10_bgp_ipv4_neighbor2_shutdown: TEMPLATE_IGNORE
-    #         vpn10_bgp_ipv4_neighbor2_remote_as: TEMPLATE_IGNORE
-    #         vpn10_bgp_ipv4_neighbor2_password: TEMPLATE_IGNORE
-    #         vpn512_oob_if_name: GigabitEthernet8
-    #         vpn512_oob_if_description: OOB-mgmt
-    #         vpn512_oob_if_shutdown: false
-    # - id: 200
-    #   routers:
-    #     - chassis_id: C8K-B5EE117E-1210-C396-EC41-D3DA64D6A51A
-    #       model: C8000V
-    #       device_template: DT-BR-T1-C8000V-ACTIVE-EXT-01
-    #       device_variables:
-    #         site_id: 200
-    #         system_ip: 10.0.0.3
-    #         system_hostname: SD-BR01-C8KV-R1
-    #         controller_groups: 1,2
-    #         logging_server_source_interface: Loopback10
-    #         ntp_server_source_interface: GigabitEthernet1
-    #         global_cdp_enable: true
-    #         global_lldp_enable: false
-    #         global_ip_domain_lookup_enable: true
-    #         snmp_shutdown: false
-    #         snmp_trap_source_interface: Loopback10
-    #         snmp_contact: contact@acme.com
-    #         snmp_location: Location 200
-    #         system_location: Site200
-    #         system_description: Site 200 C8KV01
-    #         timezone: UTC
-    #         system_latitude: 38.1
-    #         system_longitude: -1.9
-    #         ondemand_tunnel_enable: false
-    #         ondemand_tunnel_idle_timeout: 10
-    #         vpn0_layer4_ecmp_enable: true
-    #         vpn0_dns_primary: 172.16.1.254
-    #         vpn0_dns_secondary: 172.16.2.254
-    #         vpn0_ipv4_route1_nexthop1_ip: 172.16.1.254
-    #         vpn0_ipv4_route1_nexthop1_distance: 1
-    #         vpn0_ipv4_route1_nexthop2_ip: 172.16.200.2
-    #         vpn0_ipv4_route1_nexthop2_distance: 1
-    #         vpn0_tloc01_if_name: GigabitEthernet1
-    #         vpn0_tloc01_if_ipv4_address: 172.16.1.3/24
-    #         vpn0_tloc01_if_description: INET-1
-    #         vpn0_tloc01_if_shutdown: false
-    #         vpn0_tloc01_shaping_rate: 1000000
-    #         vpn0_tloc01_tunnel_ipsec_preference: 1000
-    #         vpn0_tloc01_tunnel_weight: 1
-    #         vpn0_tloc01_tunnel_color: biz-internet
-    #         vpn0_tloc01_tunnel_group: 100
-    #         vpn0_tloc01_tunnel_restrict: false
-    #         vpn0_tloc01_tunnel_vmanage_connection_preference: 5
-    #         vpn0_tloc02_if_name: GigabitEthernet2
-    #         vpn0_tloc02_if_ipv4_address: 172.16.200.1/24
-    #         vpn0_tloc02_if_description: MPLS-1
-    #         vpn0_tloc02_if_shutdown: false
-    #         vpn0_tloc02_shaping_rate: 1000000
-    #         vpn0_tloc02_tunnel_ipsec_preference: 1000
-    #         vpn0_tloc02_tunnel_weight: 1
-    #         vpn0_tloc02_tunnel_color: mpls
-    #         vpn0_tloc02_tunnel_group: 200
-    #         vpn0_tloc02_tunnel_restrict: false
-    #         vpn0_tloc02_tunnel_vmanage_connection_preference: 5
-    #         vpn0_tlocext1_if_name: GigabitEthernet4
-    #         vpn0_tlocext1_if_description: TLOC Extension | INET
-    #         vpn0_tlocext1_if_ipv4_address: 172.16.201.1/24
-    #         vpn0_tlocext1_if_shutdown: false
-    #         vpn0_tlocext1_if_tloc_extension: GigabitEthernet1
-    #         vpn10_lan_if_name: GigabitEthernet3
-    #         vpn10_lan_if_description: vpn10 LAN1
-    #         vpn10_lan_if_shutdown: false
-    #         vpn10_lan_if_ipv4_address: 10.10.2.2/24
-    #         vpn10_lan_vrrp_group_id: 10
-    #         vpn10_lan_vrrp_group_ip: 10.10.2.1
-    #         vpn10_lan_vrrp_group_priority: 110
-    #         vpn10_lan_vrrp_group_timer: 1000
-    #         vpn10_Lo10_if_ipv4_address: 10.0.10.3/32
-    #         vpn10_Lo10_if_shutdown: false
-    #         vpn10_ipv4_route1_prefix: 10.102.10.0/24
-    #         vpn10_ipv4_route1_nexthop1_ip: 10.10.2.10
-    #         vpn10_ipv4_route1_nexthop1_distance: 1
-    #         vpn11_lan_if_name: GigabitEthernet5
-    #         vpn11_lan_if_description: vpn11 LAN1
-    #         vpn11_lan_if_shutdown: false
-    #         vpn11_lan_if_ipv4_address: 10.11.2.2/24
-    #         vpn11_ipv4_route1_prefix: 10.102.11.0/24
-    #         vpn11_ipv4_route1_nexthop1_ip: 10.11.2.10
-    #         vpn11_ipv4_route1_nexthop1_distance: 1
-    #         vpn11_ipv4_lan_dhcp_address_pool: 10.11.2.0/24
-    #         vpn11_ipv4_lan_dhcp_exclude_addresses: 10.11.2.1-10.11.2.9
-    #         vpn11_ipv4_lan_dhcp_default_gateway: 10.11.2.1
-    #         vpn11_ipv4_lan_dhcp_dns_servers: 1.1.1.1
-    #         vpn11_ipv4_lan_dhcp_static_addresses: 10.11.2.10
-    #         vpn11_ipv4_lan_dhcp_static_mac: 52:54:00:15:c8:7b
-    #         vpn11_lan_vrrp_group_id: 11
-    #         vpn11_lan_vrrp_group_ip: 10.11.2.1
-    #         vpn11_lan_vrrp_group_priority: 110
-    #         vpn11_lan_vrrp_group_timer: 1000
-    #         vpn512_oob_if_name: GigabitEthernet8
-    #         vpn512_oob_if_description: OOB-mgmt
-    #         vpn512_oob_if_shutdown: false
-    #     - chassis_id: C8K-83E4B5EE-52AC-075F-B5E4-0050110680F3
-    #       model: C8000V
-    #       device_template: DT-BR-T1-C8000V-STANDBY-EXT-01
-    #       device_variables:
-    #         site_id: 200
-    #         system_ip: 10.0.0.4
-    #         system_hostname: SD-BR01-C8KV-R2
-    #         controller_groups: 1,2
-    #         logging_server_source_interface: Loopback10
-    #         ntp_server_source_interface: GigabitEthernet1
-    #         global_cdp_enable: true
-    #         global_lldp_enable: false
-    #         global_ip_domain_lookup_enable: true
-    #         snmp_shutdown: false
-    #         snmp_trap_source_interface: Loopback10
-    #         snmp_contact: contact@acme.com
-    #         snmp_location: Location 200
-    #         system_location: Site200
-    #         system_description: Site 200 C8KV01
-    #         timezone: UTC
-    #         system_latitude: 38.1
-    #         system_longitude: -1.9
-    #         ondemand_tunnel_enable: false
-    #         ondemand_tunnel_idle_timeout: 10
-    #         vpn0_layer4_ecmp_enable: true
-    #         vpn0_dns_primary: 172.16.1.254
-    #         vpn0_dns_secondary: 172.16.2.254
-    #         vpn0_ipv4_route1_nexthop1_ip: 172.16.201.1
-    #         vpn0_ipv4_route1_nexthop1_distance: 1
-    #         vpn0_ipv4_route1_nexthop2_ip: 172.16.2.254
-    #         vpn0_ipv4_route1_nexthop2_distance: 1
-    #         vpn0_tloc01_if_name: GigabitEthernet1
-    #         vpn0_tloc01_if_ipv4_address: 172.16.201.2/24
-    #         vpn0_tloc01_if_description: INET-1
-    #         vpn0_tloc01_if_shutdown: false
-    #         vpn0_tloc01_shaping_rate: 1000000
-    #         vpn0_tloc01_tunnel_ipsec_preference: 100
-    #         vpn0_tloc01_tunnel_weight: 1
-    #         vpn0_tloc01_tunnel_color: biz-internet
-    #         vpn0_tloc01_tunnel_group: 100
-    #         vpn0_tloc01_tunnel_restrict: false
-    #         vpn0_tloc01_tunnel_vmanage_connection_preference: 5
-    #         vpn0_tloc02_if_name: GigabitEthernet2
-    #         vpn0_tloc02_if_ipv4_address: 172.16.2.4/24
-    #         vpn0_tloc02_if_description: MPLS-1
-    #         vpn0_tloc02_if_shutdown: false
-    #         vpn0_tloc02_shaping_rate: 1000000
-    #         vpn0_tloc02_tunnel_ipsec_preference: 100
-    #         vpn0_tloc02_tunnel_weight: 1
-    #         vpn0_tloc02_tunnel_color: mpls
-    #         vpn0_tloc02_tunnel_group: 200
-    #         vpn0_tloc02_tunnel_restrict: false
-    #         vpn0_tloc02_tunnel_vmanage_connection_preference: 5
-    #         vpn0_tlocext1_if_name: GigabitEthernet4
-    #         vpn0_tlocext1_if_description: TLOC Extension | MPLS
-    #         vpn0_tlocext1_if_ipv4_address: 172.16.200.2/24
-    #         vpn0_tlocext1_if_shutdown: false
-    #         vpn0_tlocext1_if_tloc_extension: GigabitEthernet2
-    #         vpn10_lan_if_name: GigabitEthernet3
-    #         vpn10_lan_if_description: vpn10 LAN1
-    #         vpn10_lan_if_shutdown: false
-    #         vpn10_lan_if_ipv4_address: 10.10.2.3/24
-    #         vpn10_lan_vrrp_group_id: 10
-    #         vpn10_lan_vrrp_group_ip: 10.10.2.1
-    #         vpn10_lan_vrrp_group_priority: 90
-    #         vpn10_lan_vrrp_group_timer: 1000
-    #         vpn10_Lo10_if_ipv4_address: 10.0.10.4/32
-    #         vpn10_Lo10_if_shutdown: false
-    #         vpn10_ipv4_route1_prefix: 10.102.10.0/24
-    #         vpn10_ipv4_route1_nexthop1_ip: 10.10.2.10
-    #         vpn10_ipv4_route1_nexthop1_distance: 1
-    #         vpn11_lan_if_name: GigabitEthernet5
-    #         vpn11_lan_if_description: vpn11 LAN1
-    #         vpn11_lan_if_shutdown: false
-    #         vpn11_lan_if_ipv4_address: 10.11.2.3/24
-    #         vpn11_ipv4_route1_prefix: 10.102.11.0/24
-    #         vpn11_ipv4_route1_nexthop1_ip: 10.11.2.10
-    #         vpn11_ipv4_route1_nexthop1_distance: 1
-    #         vpn11_lan_vrrp_group_id: 11
-    #         vpn11_lan_vrrp_group_ip: 10.11.2.1
-    #         vpn11_lan_vrrp_group_priority: 90
-    #         vpn11_lan_vrrp_group_timer: 1000
-    #         vpn512_oob_if_name: GigabitEthernet8
-    #         vpn512_oob_if_description: OOB-mgmt
-    #         vpn512_oob_if_shutdown: false
-    - id: 300
+    - id: 101
       routers:
-        - chassis_id: C8K-D4D8222C-26DA-83D1-EFA8-EAA6C881AFBF
+        - chassis_id: C8K-9A7BBEAE-BE76-2BE5-B08D-EFE4D9B67D87
           model: C8000V
-          device_template: DT-BR-T2-C8000V-01
+          device_template: DT-BR-T1-C8000V-01
           device_variables:
-            site_id: 300
-            system_ip: 10.0.0.5
-            system_hostname: SD-BR02-C8KV-R1
+            site_id: 101
+            system_ip: 10.0.1.1
+            system_hostname: SD-BR101-C8KV-R1
             controller_groups: 1,2
             logging_server_source_interface: Loopback10
             ntp_server_source_interface: GigabitEthernet1
@@ -367,77 +19,51 @@ sdwan:
             global_ip_domain_lookup_enable: true
             snmp_shutdown: false
             snmp_trap_source_interface: Loopback10
-            snmp_contact: contact@acme.com
-            snmp_location: Location 300
-            system_location: Site300
-            system_description: Site 300 C8KV01
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-101
+            system_location: Branch-101
+            system_description: Branch site 101
             timezone: UTC
-            system_latitude: 38.1
-            system_longitude: -1.9
-            ondemand_tunnel_enable: false
-            ondemand_tunnel_idle_timeout: 10
-            vpn0_layer4_ecmp_enable: true
-            vpn0_dns_primary: 172.16.1.254
-            vpn0_dns_secondary: 172.16.2.254
-            vpn0_ipv4_route1_nexthop1_ip: 172.16.1.254
-            vpn0_ipv4_route1_nexthop1_distance: 1
-            vpn0_ipv4_route1_nexthop2_ip: 172.16.2.254
-            vpn0_ipv4_route1_nexthop2_distance: 1
             vpn0_tloc01_if_name: GigabitEthernet1
-            vpn0_tloc01_if_ipv4_address: 172.16.1.5/24
+            vpn0_tloc01_if_ipv4_address: 172.20.101.1/30
             vpn0_tloc01_if_description: INET-1
             vpn0_tloc01_if_shutdown: false
-            vpn0_tloc01_shaping_rate: 1000000
-            vpn0_tloc01_tunnel_ipsec_preference: 1000
-            vpn0_tloc01_tunnel_weight: 1
+            vpn0_tloc01_shaping_rate: 100000
             vpn0_tloc01_tunnel_color: biz-internet
             vpn0_tloc01_tunnel_group: 100
             vpn0_tloc01_tunnel_restrict: false
             vpn0_tloc01_tunnel_vmanage_connection_preference: 5
             vpn0_tloc02_if_name: GigabitEthernet2
-            vpn0_tloc02_if_ipv4_address: 172.16.2.5/24
+            vpn0_tloc02_if_ipv4_address: 172.21.101.1/30
             vpn0_tloc02_if_description: MPLS-1
             vpn0_tloc02_if_shutdown: false
-            vpn0_tloc02_shaping_rate: 1000000
-            vpn0_tloc02_tunnel_ipsec_preference: 1000
-            vpn0_tloc02_tunnel_weight: 1
+            vpn0_tloc02_shaping_rate: 50000
             vpn0_tloc02_tunnel_color: mpls
             vpn0_tloc02_tunnel_group: 200
             vpn0_tloc02_tunnel_restrict: false
             vpn0_tloc02_tunnel_vmanage_connection_preference: 5
             vpn10_lan_if_name: GigabitEthernet3
-            vpn10_lan_if_description: vpn10 LAN1
+            vpn10_lan_if_description: vpn10 LAN
             vpn10_lan_if_shutdown: false
-            vpn10_lan_if_ipv4_address: 10.10.3.2/24
-            vpn10_Lo10_if_ipv4_address: 10.0.10.5/32
+            vpn10_lan_if_ipv4_address: 10.10.101.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.1/32
             vpn10_Lo10_if_shutdown: false
-            vpn10_ipv4_route1_prefix: TEMPLATE_IGNORE
-            vpn10_ipv4_route1_nexthop1_ip: TEMPLATE_IGNORE
-            vpn10_ipv4_route1_nexthop1_distance: TEMPLATE_IGNORE
-            vpn10_ospf_area0_if_name: GigabitEthernet3
-            vpn10_ospf_router_id: 10.10.3.2
-            vpn10_ospf_redistribute_omp_rm: RM-SITE-OMP-TO-OSPF-ACTIVE
             vpn11_lan_if_name: GigabitEthernet4
-            vpn11_lan_if_description: vpn11 LAN1
+            vpn11_lan_if_description: vpn11 LAN
             vpn11_lan_if_shutdown: false
-            vpn11_lan_if_ipv4_address: 10.11.3.2/24
-            vpn11_ipv4_route1_prefix: TEMPLATE_IGNORE
-            vpn11_ipv4_route1_nexthop1_ip: TEMPLATE_IGNORE
-            vpn11_ipv4_route1_nexthop1_distance: TEMPLATE_IGNORE
-            vpn11_ospf_area0_if_name: GigabitEthernet4
-            vpn11_ospf_router_id: 10.11.3.2
-            vpn11_ospf_redistribute_omp_rm: RM-SITE-OMP-TO-OSPF-ACTIVE
-            vpn11_ospf_default_metric: 100
+            vpn11_lan_if_ipv4_address: 10.11.101.2/24
             vpn512_oob_if_name: GigabitEthernet8
             vpn512_oob_if_description: OOB-mgmt
             vpn512_oob_if_shutdown: false
-        - chassis_id: C8K-25679DF5-DE95-81BC-5D4A-56907294945B
+    - id: 102
+      routers:
+        - chassis_id: C8K-7C3C6885-AB19-AC8F-FFC3-96F5E7D4FB13
           model: C8000V
-          device_template: DT-BR-T2-C8000V-01
+          device_template: DT-BR-T1-C8000V-01
           device_variables:
-            site_id: 300
-            system_ip: 10.0.0.6
-            system_hostname: SD-BR02-C8KV-R2
+            site_id: 102
+            system_ip: 10.0.1.2
+            system_hostname: SD-BR102-C8KV-R1
             controller_groups: 1,2
             logging_server_source_interface: Loopback10
             ntp_server_source_interface: GigabitEthernet1
@@ -446,67 +72,993 @@ sdwan:
             global_ip_domain_lookup_enable: true
             snmp_shutdown: false
             snmp_trap_source_interface: Loopback10
-            snmp_contact: contact@acme.com
-            snmp_location: Location 300
-            system_location: Site200
-            system_description: Site 300 C8KV02
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-102
+            system_location: Branch-102
+            system_description: Branch site 102
             timezone: UTC
-            system_latitude: 38.1
-            system_longitude: -1.9
-            ondemand_tunnel_enable: false
-            ondemand_tunnel_idle_timeout: 10
-            vpn0_layer4_ecmp_enable: true
-            vpn0_dns_primary: 172.16.1.254
-            vpn0_dns_secondary: 172.16.2.254
-            vpn0_ipv4_route1_nexthop1_ip: 172.16.1.254
-            vpn0_ipv4_route1_nexthop1_distance: 1
-            vpn0_ipv4_route1_nexthop2_ip: 172.16.2.254
-            vpn0_ipv4_route1_nexthop2_distance: 1
             vpn0_tloc01_if_name: GigabitEthernet1
-            vpn0_tloc01_if_ipv4_address: 172.16.1.6/24
+            vpn0_tloc01_if_ipv4_address: 172.20.102.1/30
             vpn0_tloc01_if_description: INET-1
             vpn0_tloc01_if_shutdown: false
-            vpn0_tloc01_shaping_rate: 1000000
-            vpn0_tloc01_tunnel_ipsec_preference: 100
-            vpn0_tloc01_tunnel_weight: 1
+            vpn0_tloc01_shaping_rate: 100000
             vpn0_tloc01_tunnel_color: biz-internet
             vpn0_tloc01_tunnel_group: 100
             vpn0_tloc01_tunnel_restrict: false
             vpn0_tloc01_tunnel_vmanage_connection_preference: 5
             vpn0_tloc02_if_name: GigabitEthernet2
-            vpn0_tloc02_if_ipv4_address: 172.16.2.6/24
+            vpn0_tloc02_if_ipv4_address: 172.21.102.1/30
             vpn0_tloc02_if_description: MPLS-1
             vpn0_tloc02_if_shutdown: false
-            vpn0_tloc02_shaping_rate: 1000000
-            vpn0_tloc02_tunnel_ipsec_preference: 100
-            vpn0_tloc02_tunnel_weight: 1
+            vpn0_tloc02_shaping_rate: 50000
             vpn0_tloc02_tunnel_color: mpls
             vpn0_tloc02_tunnel_group: 200
             vpn0_tloc02_tunnel_restrict: false
             vpn0_tloc02_tunnel_vmanage_connection_preference: 5
             vpn10_lan_if_name: GigabitEthernet3
-            vpn10_lan_if_description: vpn10 LAN1
+            vpn10_lan_if_description: vpn10 LAN
             vpn10_lan_if_shutdown: false
-            vpn10_lan_if_ipv4_address: 10.10.3.3/24
-            vpn10_Lo10_if_ipv4_address: 10.0.10.6/32
+            vpn10_lan_if_ipv4_address: 10.10.102.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.2/32
             vpn10_Lo10_if_shutdown: false
-            vpn10_ipv4_route1_prefix: TEMPLATE_IGNORE
-            vpn10_ipv4_route1_nexthop1_ip: TEMPLATE_IGNORE
-            vpn10_ipv4_route1_nexthop1_distance: TEMPLATE_IGNORE
-            vpn10_ospf_area0_if_name: GigabitEthernet3
-            vpn10_ospf_router_id: 10.10.3.3
-            vpn10_ospf_redistribute_omp_rm: RM-SITE-OMP-TO-OSPF-STANDBY
             vpn11_lan_if_name: GigabitEthernet4
-            vpn11_lan_if_description: vpn11 LAN1
+            vpn11_lan_if_description: vpn11 LAN
             vpn11_lan_if_shutdown: false
-            vpn11_lan_if_ipv4_address: 10.11.3.3/24
-            vpn11_ipv4_route1_prefix: TEMPLATE_IGNORE
-            vpn11_ipv4_route1_nexthop1_ip: TEMPLATE_IGNORE
-            vpn11_ipv4_route1_nexthop1_distance: TEMPLATE_IGNORE
-            vpn11_ospf_area0_if_name: GigabitEthernet4
-            vpn11_ospf_router_id: 10.11.3.3
-            vpn11_ospf_redistribute_omp_rm: RM-SITE-OMP-TO-OSPF-STANDBY
-            vpn11_ospf_default_metric: 200
+            vpn11_lan_if_ipv4_address: 10.11.102.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 103
+      routers:
+        - chassis_id: C8K-7D39F857-2FC2-9753-58C9-FB8E84E8E36E
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 103
+            system_ip: 10.0.1.3
+            system_hostname: SD-BR103-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-103
+            system_location: Branch-103
+            system_description: Branch site 103
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.103.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.103.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.103.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.3/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.103.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 104
+      routers:
+        - chassis_id: C8K-48CE2711-8E15-ACE1-6379-7665EAE8AE32
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 104
+            system_ip: 10.0.1.4
+            system_hostname: SD-BR104-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-104
+            system_location: Branch-104
+            system_description: Branch site 104
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.104.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.104.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.104.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.4/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.104.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 105
+      routers:
+        - chassis_id: C8K-07C76CB5-2AD5-0B18-5760-0EA5FEE46051
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 105
+            system_ip: 10.0.1.5
+            system_hostname: SD-BR105-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-105
+            system_location: Branch-105
+            system_description: Branch site 105
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.105.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.105.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.105.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.5/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.105.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 106
+      routers:
+        - chassis_id: C8K-2C2A60EC-4E50-840F-CBD1-143238E985D0
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 106
+            system_ip: 10.0.1.6
+            system_hostname: SD-BR106-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-106
+            system_location: Branch-106
+            system_description: Branch site 106
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.106.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.106.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.106.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.6/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.106.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 107
+      routers:
+        - chassis_id: C8K-9D2080E2-11CE-00DE-27ED-BF64CDD521C0
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 107
+            system_ip: 10.0.1.7
+            system_hostname: SD-BR107-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-107
+            system_location: Branch-107
+            system_description: Branch site 107
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.107.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.107.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.107.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.7/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.107.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 108
+      routers:
+        - chassis_id: C8K-49A9F34C-5178-98A6-33CF-1FB67DB8257A
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 108
+            system_ip: 10.0.1.8
+            system_hostname: SD-BR108-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-108
+            system_location: Branch-108
+            system_description: Branch site 108
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.108.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.108.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.108.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.8/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.108.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 109
+      routers:
+        - chassis_id: C8K-B429C08F-9CFB-C45E-33F9-EA423BC38EB7
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 109
+            system_ip: 10.0.1.9
+            system_hostname: SD-BR109-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-109
+            system_location: Branch-109
+            system_description: Branch site 109
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.109.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.109.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.109.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.9/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.109.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 110
+      routers:
+        - chassis_id: C8K-87CCF12B-6D3F-390D-170A-F89F14BDEC48
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 110
+            system_ip: 10.0.1.10
+            system_hostname: SD-BR110-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-110
+            system_location: Branch-110
+            system_description: Branch site 110
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.110.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.110.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.110.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.10/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.110.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 111
+      routers:
+        - chassis_id: C8K-6AFFAE09-E8F8-E283-6DC6-5B9F601E14E1
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 111
+            system_ip: 10.0.1.11
+            system_hostname: SD-BR111-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-111
+            system_location: Branch-111
+            system_description: Branch site 111
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.111.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.111.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.111.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.11/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.111.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 112
+      routers:
+        - chassis_id: C8K-56461CA6-77E7-DE48-6AA1-DCB2C68977AD
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 112
+            system_ip: 10.0.1.12
+            system_hostname: SD-BR112-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-112
+            system_location: Branch-112
+            system_description: Branch site 112
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.112.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.112.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.112.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.12/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.112.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 113
+      routers:
+        - chassis_id: C8K-4ACDB82E-32FE-820A-A663-101F3E3AD0AC
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 113
+            system_ip: 10.0.1.13
+            system_hostname: SD-BR113-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-113
+            system_location: Branch-113
+            system_description: Branch site 113
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.113.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.113.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.113.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.13/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.113.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 114
+      routers:
+        - chassis_id: C8K-A8402F49-7DAB-A1C6-3E79-9A6AF40CDC8E
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 114
+            system_ip: 10.0.1.14
+            system_hostname: SD-BR114-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-114
+            system_location: Branch-114
+            system_description: Branch site 114
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.114.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.114.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.114.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.14/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.114.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 115
+      routers:
+        - chassis_id: C8K-AD8349F8-2660-DA25-35EA-655ED8EFCE49
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 115
+            system_ip: 10.0.1.15
+            system_hostname: SD-BR115-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-115
+            system_location: Branch-115
+            system_description: Branch site 115
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.115.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.115.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.115.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.15/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.115.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 116
+      routers:
+        - chassis_id: C8K-4ED4660C-7145-F18F-17BB-4AB8BA5D0520
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 116
+            system_ip: 10.0.1.16
+            system_hostname: SD-BR116-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-116
+            system_location: Branch-116
+            system_description: Branch site 116
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.116.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.116.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.116.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.16/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.116.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 117
+      routers:
+        - chassis_id: C8K-1460F6CA-207B-6DA9-4A33-DF7A61009FD4
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 117
+            system_ip: 10.0.1.17
+            system_hostname: SD-BR117-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-117
+            system_location: Branch-117
+            system_description: Branch site 117
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.117.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.117.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.117.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.17/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.117.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 118
+      routers:
+        - chassis_id: C8K-6A6E382A-A36F-07DA-3F6A-00D83AAAE556
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 118
+            system_ip: 10.0.1.18
+            system_hostname: SD-BR118-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-118
+            system_location: Branch-118
+            system_description: Branch site 118
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.118.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.118.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.118.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.18/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.118.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 119
+      routers:
+        - chassis_id: C8K-E0EE570B-AC03-326E-628D-0D70778DF98C
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 119
+            system_ip: 10.0.1.19
+            system_hostname: SD-BR119-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-119
+            system_location: Branch-119
+            system_description: Branch site 119
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.119.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.119.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.119.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.19/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.119.2/24
+            vpn512_oob_if_name: GigabitEthernet8
+            vpn512_oob_if_description: OOB-mgmt
+            vpn512_oob_if_shutdown: false
+    - id: 120
+      routers:
+        - chassis_id: C8K-577230B2-5042-5B6F-52D7-7EC62AD458BE
+          model: C8000V
+          device_template: DT-BR-T1-C8000V-01
+          device_variables:
+            site_id: 120
+            system_ip: 10.0.1.20
+            system_hostname: SD-BR120-C8KV-R1
+            controller_groups: 1,2
+            logging_server_source_interface: Loopback10
+            ntp_server_source_interface: GigabitEthernet1
+            global_cdp_enable: true
+            global_lldp_enable: false
+            global_ip_domain_lookup_enable: true
+            snmp_shutdown: false
+            snmp_trap_source_interface: Loopback10
+            snmp_contact: netops@acme.com
+            snmp_location: Branch-120
+            system_location: Branch-120
+            system_description: Branch site 120
+            timezone: UTC
+            vpn0_tloc01_if_name: GigabitEthernet1
+            vpn0_tloc01_if_ipv4_address: 172.20.120.1/30
+            vpn0_tloc01_if_description: INET-1
+            vpn0_tloc01_if_shutdown: false
+            vpn0_tloc01_shaping_rate: 100000
+            vpn0_tloc01_tunnel_color: biz-internet
+            vpn0_tloc01_tunnel_group: 100
+            vpn0_tloc01_tunnel_restrict: false
+            vpn0_tloc01_tunnel_vmanage_connection_preference: 5
+            vpn0_tloc02_if_name: GigabitEthernet2
+            vpn0_tloc02_if_ipv4_address: 172.21.120.1/30
+            vpn0_tloc02_if_description: MPLS-1
+            vpn0_tloc02_if_shutdown: false
+            vpn0_tloc02_shaping_rate: 50000
+            vpn0_tloc02_tunnel_color: mpls
+            vpn0_tloc02_tunnel_group: 200
+            vpn0_tloc02_tunnel_restrict: false
+            vpn0_tloc02_tunnel_vmanage_connection_preference: 5
+            vpn10_lan_if_name: GigabitEthernet3
+            vpn10_lan_if_description: vpn10 LAN
+            vpn10_lan_if_shutdown: false
+            vpn10_lan_if_ipv4_address: 10.10.120.2/24
+            vpn10_Lo10_if_ipv4_address: 10.1.0.20/32
+            vpn10_Lo10_if_shutdown: false
+            vpn11_lan_if_name: GigabitEthernet4
+            vpn11_lan_if_description: vpn11 LAN
+            vpn11_lan_if_shutdown: false
+            vpn11_lan_if_ipv4_address: 10.11.120.2/24
             vpn512_oob_if_name: GigabitEthernet8
             vpn512_oob_if_description: OOB-mgmt
             vpn512_oob_if_shutdown: false

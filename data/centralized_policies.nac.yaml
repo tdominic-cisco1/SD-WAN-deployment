@@ -5,99 +5,24 @@ sdwan:
     definitions:
       control_policy:
         custom_control_topology:
-          - name: TOPOLOGY-DC-OUT-01
-            description: TOPOLOGY-DC-OUT-01
+          - name: TOPOLOGY-BR-MESH-01
+            description: Branch Full Mesh - All branch routes advertised
             default_action_type: reject
             sequences:
               - id: 1
                 base_action: accept
-                name: TLOCS
+                name: All Branch TLOCs
                 ip_type: ipv4
                 type: tloc
                 match_criterias:
-                  site_list: BR-ALL
-                actions:
-                  omp_tag: 1000
+                  site_list: BR-T1
               - id: 10
                 base_action: accept
-                name: Routes
+                name: All Branch Routes
                 ip_type: ipv4
                 type: route
                 match_criterias:
                   site_list: BR-T1
-                actions:
-                  omp_tag: 200
-              - id: 20
-                base_action: accept
-                name: Routes
-                ip_type: ipv4
-                type: route
-                match_criterias:
-                  site_list: BR-T2
-                actions:
-                  omp_tag: 300
-          - name: TOPOLOGY-BR-T1-01
-            description: TOPOLOGY-BR-T1-OUT-01
-            default_action_type: reject
-            sequences:
-              - id: 1
-                base_action: accept
-                name: DC TLOCS
-                ip_type: ipv4
-                type: tloc
-                match_criterias:
-                  site_list: CENTRAL-DC
-                actions:
-                  preference: 1
-              - id: 10
-                base_action: accept
-                name: DC Routes
-                ip_type: ipv4
-                type: route
-                match_criterias:
-                  site_list: CENTRAL-DC
-                actions:
-                  omp_tag: 100
-              - id: 20
-                base_action: accept
-                name: BR Routes
-                ip_type: ipv4
-                type: route
-                match_criterias:
-                  site_list: BR-ALL
-                actions:
-                  omp_tag: 1000
-          - name: TOPOLOGY-BR-T2-01
-            description: TOPOLOGY-BR-T2-OUT-01
-            default_action_type: reject
-            sequences:
-              - id: 1
-                base_action: accept
-                name: DC TLOCS
-                ip_type: ipv4
-                type: tloc
-                match_criterias:
-                  site_list: CENTRAL-DC
-                actions:
-                  preference: 1
-              - id: 10
-                base_action: accept
-                name: DC Routes
-                ip_type: ipv4
-                type: route
-                match_criterias:
-                  site_list: CENTRAL-DC
-                actions:
-                  omp_tag: 100
-              - id: 20
-                base_action: accept
-                name: BR Routes
-                ip_type: ipv4
-                type: route
-                match_criterias:
-                  site_list: BR-ALL
-                actions:
-                  omp_tag: 1000
       data_policy:
         application_aware_routing:
           - name: AAR-Policy-01
@@ -272,21 +197,13 @@ sdwan:
                 source_interface: GigabitEthernet3
                 export_spreading: enable
     feature_policies:
-      - name: CP-Hub-and-Spoke-01
-        description: Hub and Spoke | AAR | DP for QoS | cFlow
+      - name: CP-Branch-Mesh-01
+        description: Branch full mesh connectivity
         custom_control_topology:
-          - policy_definition: TOPOLOGY-DC-OUT-01
+          - policy_definition: TOPOLOGY-BR-MESH-01
             site_region:
               site_lists_out:
-                - CENTRAL-DC
-          - policy_definition: TOPOLOGY-BR-T1-01
-            site_region:
-              site_lists_out:
-                - BR-T1
-          - policy_definition: TOPOLOGY-BR-T2-01
-            site_region:
-              site_lists_out:
-                - BR-T2
+                - BR-ALL
         traffic_data:
           - policy_definition: DP-VPN10-01
             site_region_vpn:
@@ -316,4 +233,4 @@ sdwan:
           - policy_definition: CFLOW_DEFINITION_v01
             site_lists:
               - DC-BR-ALL
-    activated_policy: CP-Hub-and-Spoke-01
+    activated_policy: CP-Branch-Mesh-01
