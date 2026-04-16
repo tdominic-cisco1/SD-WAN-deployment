@@ -6,7 +6,7 @@ sdwan:
       control_policy:
         custom_control_topology:
           - name: TOPOLOGY-BR-MESH-01
-            description: Branch Full Mesh - All branch routes advertised
+            description: Branch Full Mesh - Updated for expansion sites 201-220
             default_action_type: reject
             sequences:
               - id: 1
@@ -15,14 +15,14 @@ sdwan:
                 ip_type: ipv4
                 type: tloc
                 match_criterias:
-                  site_list: BR-T1
+                  site_list: BR-ALL
               - id: 10
                 base_action: accept
                 name: All Branch Routes
                 ip_type: ipv4
                 type: route
                 match_criterias:
-                  site_list: BR-T1
+                  site_list: BR-ALL
       data_policy:
         application_aware_routing:
           - name: AAR-Policy-01
